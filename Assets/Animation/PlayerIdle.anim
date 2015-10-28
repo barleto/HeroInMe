@@ -48,27 +48,27 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: {x: .560000002, y: -2.30999994, z: 0}
+        value: {x: .179999799, y: -2.30999994, z: 0}
         inSlope: {x: 0, y: -.140000343, z: 0}
         outSlope: {x: 0, y: -.140000343, z: 0}
         tangentMode: 0
       - time: .5
-        value: {x: .560000002, y: -2.38000011, z: 0}
+        value: {x: .179999799, y: -2.38000011, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - time: 1
-        value: {x: .560000002, y: -2.30999994, z: 0}
+        value: {x: .179999799, y: -2.30999994, z: 0}
         inSlope: {x: 0, y: .100000143, z: 0}
         outSlope: {x: 0, y: .100000143, z: 0}
         tangentMode: 0
       - time: 1.5
-        value: {x: .560000002, y: -2.27999997, z: 0}
+        value: {x: .179999799, y: -2.27999997, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - time: 2
-        value: {x: .560000002, y: -2.30999994, z: 0}
+        value: {x: .179999799, y: -2.30999994, z: 0}
         inSlope: {x: 0, y: -.0599999428, z: 0}
         outSlope: {x: 0, y: -.0599999428, z: 0}
         tangentMode: 0
@@ -259,27 +259,27 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: .560000002
+        value: .179999799
         inSlope: 0
         outSlope: 0
         tangentMode: 10
       - time: .5
-        value: .560000002
+        value: .179999799
         inSlope: 0
         outSlope: 0
         tangentMode: 10
       - time: 1
-        value: .560000002
+        value: .179999799
         inSlope: 0
         outSlope: 0
         tangentMode: 10
       - time: 1.5
-        value: .560000002
+        value: .179999799
         inSlope: 0
         outSlope: 0
         tangentMode: 10
       - time: 2
-        value: .560000002
+        value: .179999799
         inSlope: 0
         outSlope: 0
         tangentMode: 10
