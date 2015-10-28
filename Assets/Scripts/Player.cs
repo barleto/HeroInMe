@@ -37,6 +37,10 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 	}
 
+	public void attack(){
+		animator.SetTrigger ("Attacking");
+	}
+
 	// Flips player sprites scale
 	void Flip (){
 		facingRight = !facingRight;

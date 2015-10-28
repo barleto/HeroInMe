@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour {
 	private Vector2 direction;
 	private bool directionChosen;
 	private bool willMove;
+	private bool attack = false;
 
 	void Awake () {
 		// Gets the script associated with the player controller interface
@@ -37,16 +38,22 @@ public class PlayerControls : MonoBehaviour {
 				// Report that a direction has been chosen when the finger is lifted.
 			case TouchPhase.Ended:
 				willMove = false;
+				if(Input.touchCount == 2){ // double tap
+					attack = true;
+				}
 				break;
 			}
 		}
 		// After user released his finger will decide which action to do
 		if (directionChosen) {
-			if (willMove) { //swipe
+			if (willMove) { // swipe
 				player.movePlayer (direction);
-			} else { //tap
+			} else {
 				player.movePlayer(new Vector2(0, 0));
 			}
+		} else if (attack) {
+			player.attack();
+			attack = false;
 		}
 	}
 }

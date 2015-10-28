@@ -7,5 +7,5 @@ public interface IPlayerController {
 	void movePlayer(Vector2 movement);
 	
 	//make player attack
-//	void attack();
+	void attack();
 }
