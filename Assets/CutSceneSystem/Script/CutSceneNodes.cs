@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class CutSceneNodes {
+public class CutSceneNodes : System.Object{
 
 	public bool playWithNext = false;
 

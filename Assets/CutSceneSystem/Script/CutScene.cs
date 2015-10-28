@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class CutScene : MonoBehaviour {
 	
 	public List<CutSceneNodes> nodeList = new List<CutSceneNodes>();
