@@ -82,7 +82,7 @@ public class CutSceneEditor : Editor {
 		return (Selection.activeGameObject != null);
 	}
 
-	[MenuItem("Cut Scene System/Add Cut Scene Sytem To Scene")]
+	[MenuItem("Cut Scene System/Add Cut Scene System To Scene")]
 	static void CreateCutSceneSytem (MenuCommand command) {
 		if(GameObject.Find("CutSceneSystem") == null){
 			GameObject sys= Instantiate(Resources.Load("CutSceneSystem", typeof(GameObject))) as GameObject;
@@ -91,7 +91,7 @@ public class CutSceneEditor : Editor {
 		}
 	}
 
-	[MenuItem("Cut Scene System/Add Cut Scene Sytem To Scene",true)]
+	[MenuItem("Cut Scene System/Add Cut Scene System To Scene",true)]
 	static bool ValidateCreateCutSceneSytem (MenuCommand command) {
 		if(GameObject.Find("CutSceneSystem") == null){
 			return true;
