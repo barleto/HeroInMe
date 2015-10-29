@@ -85,15 +85,15 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1272457898
+--- !u!1 &1135714367
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1272457900}
-  - 114: {fileID: 1272457899}
+  - 4: {fileID: 1135714369}
+  - 114: {fileID: 1135714368}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -101,25 +101,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1272457899
+--- !u!114 &1135714368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272457898}
+  m_GameObject: {fileID: 1135714367}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseGame: 1
+  pauseGame: 0
   css: {fileID: 1795752473}
---- !u!4 &1272457900
+--- !u!4 &1135714369
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272457898}
+  m_GameObject: {fileID: 1135714367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 318, y: 212, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -290,39 +290,6 @@ Prefab:
     - target: {fileID: 22434176, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477078, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b367c6ccea61c4da9b95df597e0825dc,
-        type: 3}
-    - target: {fileID: 11477078, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477078, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477078, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477078, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 999db0fbe1d84f749942ab46005b00a4, type: 2}
-    - target: {fileID: 11484404, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
-      propertyPath: m_Text
-      value: 'Hero: OMG! I Feel like JRPG today.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}

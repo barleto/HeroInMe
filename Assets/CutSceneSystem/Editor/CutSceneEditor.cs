@@ -7,6 +7,8 @@ using UnityEditor;
 public class CutSceneEditor : Editor {
 
 	CutScene cutScene;
+	private int index1,index2;
+	private bool grouping = false;
 
 	public override void OnInspectorGUI(){
 		cutScene = (CutScene)target;
@@ -30,13 +32,14 @@ public class CutSceneEditor : Editor {
 		GUILayout.EndHorizontal ();
 
 		//show list
-		for(int i=0;i<cutScene.nodeList.Count;i++){
-			CutSceneNodes nodeS = cutScene.nodeList[i];
+		grouping = false;
+		foreach(CutSceneNodes nodeS in cutScene.nodeList){
+			GUILayout.BeginVertical("box");
+
 			if(nodeS is Dialogue){
 				Dialogue node = (Dialogue)nodeS;
-				GUILayout.BeginVertical("box");
 				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
-					cutScene.nodeList.RemoveAt(i);
+					cutScene.nodeList.Remove(node);
 				}
 				GUILayout.Label("<<Dialog>>");
 				if(!cutScene.pauseGame){
@@ -50,19 +53,126 @@ public class CutSceneEditor : Editor {
 				GUILayout.Label("Text: ");	
 				node.text = EditorGUILayout.TextArea(((Dialogue)node).text,GUILayout.Width(300),GUILayout.Height(60));
 				GUILayout.EndHorizontal();
-			}else{
+				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
+					if(GUILayout.Button("Group With Next Node")){
+						grouping = true;
+						index1 = cutScene.nodeList.IndexOf(nodeS);
+						index2 = index1+1;
+					}
+				}
+			}else if(nodeS is AnimationNode){
 				AnimationNode node = (AnimationNode)nodeS;
-				GUILayout.BeginVertical("box");
+
 				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
-					cutScene.nodeList.RemoveAt(i);
+					cutScene.nodeList.Remove(node);
 				}
 				GUILayout.Label("<<Animation>>");
 				node.animation = (Animation)EditorGUILayout.ObjectField ("Animation: ",node.animation, typeof(Animation), true);
 				node.waitToFinish = EditorGUILayout.Toggle("Wait To Finish: ",node.waitToFinish);
+				if(cutScene.nodeList.IndexOf(node)+1 < cutScene.nodeList.Count){
+					if(GUILayout.Button("Group With Next Node")){
+						grouping = true;
+						index1 = cutScene.nodeList.IndexOf(node);
+						index2 = index1+1;
+					}
+				}
+			}else{
+				CompositeCutSceneNode nodeC = (CompositeCutSceneNode)nodeS;
+				if(nodeC.children.Count>0){
+					for(int j=0;j<nodeC.children.Count;j++){
+						CutSceneNodes nodeSC = nodeC.children[j];
+						if(nodeSC is Dialogue){
+							Dialogue nodeI = (Dialogue)nodeSC;
+							if(GUILayout.Button("- Delete",GUILayout.Width(100))){
+								nodeC.children.RemoveAt(j);
+							}
+							GUILayout.Label("<<Dialog>>");
+							if(!cutScene.pauseGame){
+								nodeI.target = (GameObject)EditorGUILayout.ObjectField ("Target: ",nodeI.target, typeof(GameObject), true);
+								nodeI.timeToLive = EditorGUILayout.FloatField("Time To Live",nodeI.timeToLive);
+							}
+							GUILayout.BeginHorizontal();
+							nodeI.characterImage = (Sprite)EditorGUILayout.ObjectField ("Icon: ",nodeI.characterImage, typeof(Sprite), true);
+							GUILayout.EndHorizontal();
+							GUILayout.BeginHorizontal();
+							GUILayout.Label("Text: ");	
+							nodeI.text = EditorGUILayout.TextArea(((Dialogue)nodeI).text,GUILayout.Width(300),GUILayout.Height(60));
+							GUILayout.EndHorizontal();
+						}else if(nodeSC is AnimationNode){
+							AnimationNode nodeSA = (AnimationNode)nodeSC;
+							
+							if(GUILayout.Button("- Delete",GUILayout.Width(100))){
+								nodeC.children.RemoveAt(j);
+							}
+							GUILayout.Label("<<Animation>>");
+							nodeSA.animation = (Animation)EditorGUILayout.ObjectField ("Animation: ",nodeSA.animation, typeof(Animation), true);
+							nodeSA.waitToFinish = EditorGUILayout.Toggle("Wait To Finish: ",nodeSA.waitToFinish);
+
+						}
+						if(j+1 < nodeC.children.Count){
+							if(GUILayout.Button("Break Group Here")){
+								CompositeCutSceneNode newComp = new CompositeCutSceneNode();
+								newComp.children = nodeC.children.GetRange(j+1,nodeC.children.Count - 1 - j);
+								nodeC.children.RemoveRange(j+1,nodeC.children.Count - 1 - j);
+								int index = cutScene.nodeList.IndexOf(nodeS);
+								cutScene.nodeList.Insert(index+1,newComp);
+							}
+						}
+					}
+				}
+
+				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
+					if(GUILayout.Button("Group With Next Node")){
+						grouping = true;
+						index1 = cutScene.nodeList.IndexOf(nodeS);
+						index2 = index1+1;
+					}
+				}
+
 			}
-			nodeS.playWithNext = EditorGUILayout.Toggle("Play With Next: ",nodeS.playWithNext);
+			//nodeS.playWithNext = EditorGUILayout.Toggle("Play With Next: ",nodeS.playWithNext);
 			GUILayout.EndVertical();
 		}
+
+		if(grouping){
+			CutSceneNodes g1  = cutScene.nodeList[index1];
+			CutSceneNodes g2 = cutScene.nodeList[index2];
+			if(g1 is CompositeCutSceneNode){
+				if(g2 is CompositeCutSceneNode){
+					((CompositeCutSceneNode)g1).children.AddRange(((CompositeCutSceneNode)g2).children);
+					cutScene.nodeList.Remove(g2);
+				}else{
+					((CompositeCutSceneNode)g1).children.Add(g2);
+					cutScene.nodeList.Remove(g2);
+				}
+			}else{
+				if(g2 is CompositeCutSceneNode){
+					((CompositeCutSceneNode)g2).children.Insert(0,g1);
+					cutScene.nodeList.Remove(g1);
+				}else{
+					CompositeCutSceneNode composite = new CompositeCutSceneNode();
+					composite.children.Add(g1);
+					composite.children.Add(g2);
+					cutScene.nodeList.Insert(index2+1,composite);
+					cutScene.nodeList.Remove(g1);
+					cutScene.nodeList.Remove(g2);
+				}
+			}
+			grouping = false;
+		}
+
+		foreach(CutSceneNodes nodeS in cutScene.nodeList){
+			if(nodeS is CompositeCutSceneNode){
+				if(((CompositeCutSceneNode)nodeS).children.Count < 1){
+					cutScene.nodeList.Remove(nodeS);
+				}else if(((CompositeCutSceneNode)nodeS).children.Count == 1){
+					int index = cutScene.nodeList.IndexOf(nodeS);
+					cutScene.nodeList.Insert(index+1,((CompositeCutSceneNode)nodeS).children[0]);
+					cutScene.nodeList.Remove(nodeS);
+				}
+			}
+		}
+
 
 	}
 
