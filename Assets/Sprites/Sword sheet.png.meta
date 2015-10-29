@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: a25e2ac6ec6e8b84f9b0bf1d06cb22df
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Sword sheet_0
+    21300002: The Flame
+    21300004: Sword sheet_2
+    21300006: Sword sheet_3
+    21300008: Sword sheet_4
+    21300010: Sword sheet_5
+    21300012: Sword sheet_6
+    21300014: Sword sheet_7
+    21300016: Sword sheet_8
+    21300018: Sword sheet_9
+    21300020: Sword sheet_10
+    21300022: Sword sheet_11
+    21300024: Sword sheet_12
+    21300026: Sword sheet_13
+    21300028: Sword sheet_14
+    21300030: Sword sheet_15
+    21300032: Sword sheet_16
+    21300034: Sword sheet_17
+    21300036: Sword sheet_18
+    21300038: Sword sheet_19
+    21300040: Sword sheet_20
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,7 +56,6 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -50,7 +70,6 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: -2
     compressionQuality: 50
-    allowsAlphaSplitting: 0
   spriteSheet:
     sprites:
     - name: Sword sheet_0

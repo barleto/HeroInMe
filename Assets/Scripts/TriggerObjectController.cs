@@ -18,7 +18,7 @@ public class TriggerObjectController : MonoBehaviour {
 
 	//Função chamada quando o trigger é ativado
 	public void Action () {
-		target.GetComponent<MainCharacterController>().EquipItem(sr.sprite);
+		target.GetComponent<IPlayerController>().EquipItem(sr.sprite);
 		Destroy();
 	}
 
