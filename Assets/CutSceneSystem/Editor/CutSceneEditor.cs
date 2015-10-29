@@ -68,7 +68,6 @@ public class CutSceneEditor : Editor {
 				}
 				GUILayout.Label("<<Animation>>");
 				node.animation = (Animation)EditorGUILayout.ObjectField ("Animation: ",node.animation, typeof(Animation), true);
-				node.waitToFinish = EditorGUILayout.Toggle("Wait To Finish: ",node.waitToFinish);
 				if(cutScene.nodeList.IndexOf(node)+1 < cutScene.nodeList.Count){
 					if(GUILayout.Button("Group With Next Node")){
 						grouping = true;
@@ -106,11 +105,10 @@ public class CutSceneEditor : Editor {
 							}
 							GUILayout.Label("<<Animation>>");
 							nodeSA.animation = (Animation)EditorGUILayout.ObjectField ("Animation: ",nodeSA.animation, typeof(Animation), true);
-							nodeSA.waitToFinish = EditorGUILayout.Toggle("Wait To Finish: ",nodeSA.waitToFinish);
 
 						}
 						if(j+1 < nodeC.children.Count){
-							if(GUILayout.Button("Break Group Here")){
+							if(GUILayout.Button("-- Break Group Here --")){
 								CompositeCutSceneNode newComp = new CompositeCutSceneNode();
 								newComp.children = nodeC.children.GetRange(j+1,nodeC.children.Count - 1 - j);
 								nodeC.children.RemoveRange(j+1,nodeC.children.Count - 1 - j);

@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseGame: 0
+  pauseGame: 1
   css: {fileID: 1795752473}
 --- !u!4 &1135714369
 Transform:
