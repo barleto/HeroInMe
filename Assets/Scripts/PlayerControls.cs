@@ -47,12 +47,12 @@ public class PlayerControls : MonoBehaviour {
 		// After user released his finger will decide which action to do
 		if (directionChosen) {
 			if (willMove) { // swipe
-				player.movePlayer (direction);
+				player.MovePlayer (direction);
 			} else {
-				player.movePlayer(new Vector2(0, 0));
+				player.MovePlayer(new Vector2(0, 0));
 			}
 		} else if (attack) {
-			player.attack();
+			player.Attack();
 			attack = false;
 		}
 	}
