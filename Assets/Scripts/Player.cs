@@ -88,13 +88,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag("Platform")) {
-			if(inAir){
-				animator.SetTrigger("Landing");
-			}
-			inAir = false;
-			animator.SetBool("Falling", false);
-		} else if (col.gameObject.CompareTag("PickUp")) {
+		if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
 		} else if (col.gameObject.CompareTag("DeathTrigger")) {
 			transform.position = new Vector3 (0, 2, 0);
@@ -103,7 +97,17 @@ public class Player : MonoBehaviour, IPlayerController {
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
 	}
-	
+
+	void OnTriggerStay2D(Collider2D col){
+		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag ("Platform")) {
+			if (inAir) {
+				animator.SetTrigger ("Landing");
+			}
+			inAir = false;
+			animator.SetBool ("Falling", false);
+		}
+	}
+
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag("Platform")) {
 			inAir = true;
