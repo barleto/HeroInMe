@@ -24,7 +24,9 @@ public class CutSceneEditor : Editor {
 		//draw buttons for adding and subtracting the cutscene sequence:
 		GUILayout.BeginHorizontal ();
 		if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){
-			cutScene.nodeList.Add(new Dialogue());
+			Dialogue newDialogue = new Dialogue();
+			cutScene.nodeList.Add(newDialogue);
+			//EditorUtility.SetDirty(newDialogue);
 		}
 		if(GUILayout.Button("+Animation",GUILayout.Width(100))){
 			cutScene.nodeList.Add(new AnimationNode());
@@ -41,7 +43,11 @@ public class CutSceneEditor : Editor {
 				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
 					cutScene.nodeList.Remove(node);
 				}
-				GUILayout.Label("<<Dialog>>");
+				GUILayout.Label("<<Dialogue>>");
+				float time = EditorGUILayout.FloatField("Letter Pause Time in seconds: ",node.letterPause);
+				if(time >= 0f && time <= 10){
+					node.letterPause = time;
+				}
 				if(!cutScene.pauseGame){
 					node.target = (GameObject)EditorGUILayout.ObjectField ("Target: ",node.target, typeof(GameObject), true);
 					node.timeToLive = EditorGUILayout.FloatField("Time To Live",node.timeToLive);
@@ -85,7 +91,11 @@ public class CutSceneEditor : Editor {
 							if(GUILayout.Button("- Delete",GUILayout.Width(100))){
 								nodeC.children.RemoveAt(j);
 							}
-							GUILayout.Label("<<Dialog>>");
+							GUILayout.Label("<<Dialogue>>");
+							float time = EditorGUILayout.FloatField("Letter Pause Time in seconds: ",nodeI.letterPause);
+							if(time >= 0f && time <= 10){
+								nodeI.letterPause = time;
+							}
 							if(!cutScene.pauseGame){
 								nodeI.target = (GameObject)EditorGUILayout.ObjectField ("Target: ",nodeI.target, typeof(GameObject), true);
 								nodeI.timeToLive = EditorGUILayout.FloatField("Time To Live",nodeI.timeToLive);
@@ -130,6 +140,7 @@ public class CutSceneEditor : Editor {
 			}
 			//nodeS.playWithNext = EditorGUILayout.Toggle("Play With Next: ",nodeS.playWithNext);
 			GUILayout.EndVertical();
+			EditorUtility.SetDirty(cutScene);
 		}
 
 		if(grouping){

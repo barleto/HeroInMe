@@ -112,6 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeList:
+  - {fileID: 1185327374}
+  - {fileID: 1685318804}
   pauseGame: 1
   css: {fileID: 1795752473}
 --- !u!4 &1135714369
@@ -126,6 +129,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1185327374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterImage: {fileID: 21300000, guid: 7976cbc5488fcca4ba2060cb32124093, type: 3}
+  text: 'OLAAAA CAIOOOSSOOOOO E.......
+
+    OLAARRRRR DEKKOHHHHH
+
+    OLAAAA CAIOOOSSOOOOO E.......
+
+    OLAARRRRR DEKKOHHHHH
+
+    OLAAAA CAIOOOSSOOOOO E.......
+
+    OLAARRRRR DEKKOHHHHH
+
+    OLAAAA CAIOOOSSOOOOO E.......
+
+    OLAARRRRR DEKKOHHHHH'
+  target: {fileID: 0}
+  timeToLive: 1
+  letterPause: .00999999978
 --- !u!1 &1682538458
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +245,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1685318804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterImage: {fileID: 21300000, guid: 65fc2ec6163c04c468bc52942639dca0, type: 3}
+  text: 'UHMMMMMMM
+
+    UHMMMMMMM
+
+    UHMMMMMMM'
+  target: {fileID: 0}
+  timeToLive: 1
+  letterPause: .00999999978
 --- !u!1001 &1795752472
 Prefab:
   m_ObjectHideFlags: 0
@@ -291,6 +344,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: currentCutScene
+      value: 
+      objectReference: {fileID: 1135714368}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
   m_IsPrefabParent: 0

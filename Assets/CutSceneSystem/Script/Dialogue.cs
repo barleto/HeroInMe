@@ -7,9 +7,6 @@ public class Dialogue : CutSceneNodes {
 	public string text;
 	public GameObject target = null;
 	public float timeToLive = 1.0f;
-
-
-	public Dialogue(){
-		
-	}
+	[Range(0.1f,5f)]
+	public float letterPause = 0.1f;
 }

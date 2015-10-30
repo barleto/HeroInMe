@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf2f5ae3f6e0447cb735a86d02dfda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkImage: {fileID: 186046}
+  talkImage: {fileID: 11477078}
   chatBox: {fileID: 11475552}
   textBox: {fileID: 11484404}
   mainCharacaterScript: {fileID: 0}
