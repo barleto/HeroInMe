@@ -348,6 +348,26 @@ Prefab:
       propertyPath: currentCutScene
       value: 
       objectReference: {fileID: 1135714368}
+    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: m_Color.g
+      value: .161358923
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: m_Color.b
+      value: .632352948
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 999db0fbe1d84f749942ab46005b00a4, type: 2}
+    - target: {fileID: 11475552, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: m_Color.a
+      value: .535000026
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
   m_IsPrefabParent: 0

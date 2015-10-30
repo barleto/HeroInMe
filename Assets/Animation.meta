@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 7313941952a4e416487af1a978d9c5c5
+folderAsset: yes
+timeCreated: 1445536321
+=======
 guid: c5ef6c80bc3484a4a9cd0f4dcb91f9fb
 folderAsset: yes
 timeCreated: 1445956374
+>>>>>>> dekkoh
 licenseType: Free
 DefaultImporter:
   userData: 
