@@ -4,15 +4,20 @@ using System.Collections;
 public class Player : MonoBehaviour, IPlayerController {
 
 	public float speed;
+	public GameObject Weapon;
 
 	private Rigidbody2D myBody;
 	private Animator animator;
 	private bool facingRight = true;
 	private bool inAir = false;
+	private SpriteRenderer weaponSpriteRenderer;
+	private BoxCollider2D weaponBoxCollider2D;
 
 	void Awake () {
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+		weaponSpriteRenderer = Weapon.GetComponent<SpriteRenderer>();
+		weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
 	}
 
 	// Will move the player given a movement vector
@@ -54,7 +59,13 @@ public class Player : MonoBehaviour, IPlayerController {
 			inAir = false;
 			animator.SetTrigger("Landing");
 			animator.SetBool("Falling", false);
-		}
+		} else if (col.gameObject.CompareTag("PickUp")) {
+			col.gameObject.GetComponent<TriggerObjectController>().Action();
+		} else if (col.gameObject.CompareTag("DeathTrigger")) {
+			transform.position = new Vector3 (0, 2, 0);
+		} else if(col.gameObject.CompareTag("Key")){
+			col.gameObject.GetComponent<CoinController>().Action();
+		} 
 	}
 
 	void OnTriggerExit2D(Collider2D col){
@@ -62,5 +73,25 @@ public class Player : MonoBehaviour, IPlayerController {
 			inAir = true;
 			animator.SetBool("Falling", true);
 		}
+	}
+
+	void OnCollisionEnter2D(Collision2D col) {
+		if(col.transform.CompareTag("Platform")) {
+			transform.parent = col.transform;
+		}
+	}
+	
+	void OnCollisionExit2D (Collision2D col) {
+		if (col.transform.CompareTag ("Platform")) {
+			transform.SetParent(null);
+		}
+	}
+
+	public void EquipItem (Sprite sprite) {
+		
+		weaponSpriteRenderer.sprite = sprite;
+		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
+		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
+		weaponBoxCollider2D.enabled = false;
 	}
 }
