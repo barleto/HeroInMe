@@ -24,7 +24,9 @@ public class CutSceneSystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playScene (currentCutScene);
+		chatBox.gameObject.SetActive (!chatBox.gameObject.activeSelf);
+		talkImage.gameObject.SetActive (!talkImage.gameObject.activeSelf);
+		playScene (currentCutScene);//TODO remove this
 	}
 	
 	// Update is called once per frame
@@ -37,11 +39,12 @@ public class CutSceneSystem : MonoBehaviour {
 			return;
 		}
 		currentCutScene = newScene;
+		toggleUIVisibility ();
 		jumpToNodeAndPLay (currentIndexNode);
 	}
 
 	public void stopScene(){
-		//HIDE DIALOGUE UI HERE TODO
+		toggleUIVisibility ();
 	}
 
 	public void pauseScene(){
@@ -51,6 +54,7 @@ public class CutSceneSystem : MonoBehaviour {
 	public void jumpToNodeAndPLay(int index){
 		if(index >= currentCutScene.nodeList.Count){
 			currentCutScene = null;
+			toggleUIVisibility ();
 			return;
 		}
 		currentNode = currentCutScene.nodeList[index];
@@ -73,7 +77,6 @@ public class CutSceneSystem : MonoBehaviour {
 				dialogue = (Dialogue)currentNode;
 			}
 		}
-		//SHOW DIALOGUE UI TODO
 		runCurrentNode();
 
 	}
@@ -101,5 +104,10 @@ public class CutSceneSystem : MonoBehaviour {
 				jumpToNodeAndPLay(++currentIndexNode);
 		}
 
+	}
+
+	void toggleUIVisibility(){
+		chatBox.gameObject.SetActive (!chatBox.gameObject.activeSelf);
+		talkImage.gameObject.SetActive (!talkImage.gameObject.activeSelf);
 	}
 }
