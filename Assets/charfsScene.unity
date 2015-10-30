@@ -85,6 +85,40 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &61272328 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 135948, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+  m_PrefabInternal: {fileID: 1795752472}
+--- !u!114 &61272332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 61272328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1795752473}
+          m_MethodName: tapAtChatBox
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1001 &118029253
 Prefab:
   m_ObjectHideFlags: 0
@@ -94,7 +128,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: nodeList.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 430132, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -126,38 +160,37 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 430132, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: nodeList.Array.data[0]
       value: 
-      objectReference: {fileID: 1185327374}
+      objectReference: {fileID: 719984444}
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: nodeList.Array.data[1]
       value: 
-      objectReference: {fileID: 1685318804}
+      objectReference: {fileID: 755958613}
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: nodeList.Array.data[2]
       value: 
-      objectReference: {fileID: 1274902997}
+      objectReference: {fileID: 1112014685}
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: nodeList.Array.data[3]
       value: 
-      objectReference: {fileID: 2048771563}
+      objectReference: {fileID: 1112014685}
     - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
       propertyPath: css
       value: 
       objectReference: {fileID: 1795752473}
-    m_RemovedComponents: []
+    - target: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
+      propertyPath: pauseGame
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1135714368 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11466554, guid: 129b60cba0a8c4be39d4fa0db6aaec4d,
-    type: 2}
-  m_PrefabInternal: {fileID: 118029253}
-  m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
---- !u!114 &1185327374
+--- !u!114 &476567640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -168,13 +201,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterImage: {fileID: 21300000, guid: 29bd44febabe24c3ca975fc04ce002bf, type: 3}
-  text: "Charf! Charf!\nVoc\xEA terminou o sistema de \ndi\xE1logos pra gente apresentar?\n
-    \                         "
+  characterImage: {fileID: 0}
+  text: dhrfhddhfhdfgfhdgdhfg
   target: {fileID: 0}
   timeToLive: 1
-  letterPause: .0500000007
---- !u!114 &1274902997
+  letterPause: .100000001
+--- !u!1 &594770654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 594770655}
+  - 33: {fileID: 594770658}
+  - 65: {fileID: 594770657}
+  - 23: {fileID: 594770656}
+  - 111: {fileID: 594770659}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594770655
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594770654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 12.3199997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1682538463}
+  m_RootOrder: 0
+--- !u!23 &594770656
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594770654}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &594770657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594770654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &594770658
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594770654}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!111 &594770659
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594770654}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 176605cadd5314a8383fb80a5fb8f0c8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 176605cadd5314a8383fb80a5fb8f0c8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &642572011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1682538464}
+--- !u!114 &719984444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -185,11 +318,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterImage: {fileID: 21300000, guid: 6fceb5bb516834c5cb6a09327bc3c3de, type: 3}
-  text: "Alguem viu meu pudiiimmm???\n                                 "
+  characterImage: {fileID: 0}
+  text: bnvcvbn
   target: {fileID: 0}
   timeToLive: 1
-  letterPause: .0500000007
+  letterPause: .100000001
+--- !u!114 &755958613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1682538464}
+--- !u!114 &1112014685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1682538464}
+--- !u!114 &1264823320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 594770659}
 --- !u!1 &1682538458
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +371,7 @@ GameObject:
   - 92: {fileID: 1682538461}
   - 124: {fileID: 1682538460}
   - 81: {fileID: 1682538459}
+  - 111: {fileID: 1682538464}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -273,25 +443,25 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 594770655}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &1685318804
-MonoBehaviour:
+--- !u!111 &1682538464
+Animation:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1682538458}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterImage: {fileID: 21300000, guid: 99d1b8f60bbc14c9ba07ff20cfd55783, type: 3}
-  text: "OH MEU DEUSSSS\nEU ESQUECIIIIII!@!!!!!!!!!\n                                                                                         "
-  target: {fileID: 0}
-  timeToLive: 1
-  letterPause: .00999999978
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3f3583516ca6540ab947c8301ef6f23c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3f3583516ca6540ab947c8301ef6f23c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1795752472
 Prefab:
   m_ObjectHideFlags: 0
@@ -374,7 +544,7 @@ Prefab:
     - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: currentCutScene
       value: 
-      objectReference: {fileID: 1135714368}
+      objectReference: {fileID: 1829970262}
     - target: {fileID: 186046, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -392,15 +562,24 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1795752472}
   m_Script: {fileID: 11500000, guid: 5bf2f5ae3f6e0447cb735a86d02dfda2, type: 3}
---- !u!114 &2048771563
+--- !u!1 &1829970260 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 179856, guid: 129b60cba0a8c4be39d4fa0db6aaec4d, type: 2}
+  m_PrefabInternal: {fileID: 118029253}
+--- !u!114 &1829970262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1829970260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
+  m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: {fileID: 0}
+  nodeList:
+  - {fileID: 476567640}
+  - {fileID: 1264823320}
+  - {fileID: 642572011}
+  pauseGame: 1
+  css: {fileID: 1795752473}

@@ -21,6 +21,7 @@ public class CutSceneSystem : MonoBehaviour {
 	private bool isCompositeNode = false;
 	private bool hasNodeFinished = false;
 	private bool hasDialogueFinished = false;
+	private bool tapOccured = false;
 
 	// Use this for initialization
 	void Start () {
@@ -39,12 +40,12 @@ public class CutSceneSystem : MonoBehaviour {
 			return;
 		}
 		currentCutScene = newScene;
-		toggleUIVisibility ();
+		toggleUIVisibility (true);
 		jumpToNodeAndPLay (currentIndexNode);
 	}
 
 	public void stopScene(){
-		toggleUIVisibility ();
+		toggleUIVisibility (false);
 	}
 
 	public void pauseScene(){
@@ -54,10 +55,12 @@ public class CutSceneSystem : MonoBehaviour {
 	public void jumpToNodeAndPLay(int index){
 		if(index >= currentCutScene.nodeList.Count){
 			currentCutScene = null;
-			toggleUIVisibility ();
+			toggleUIVisibility (false);
 			return;
 		}
 		currentNode = currentCutScene.nodeList[index];
+		anims.Clear ();
+		dialogue = null;
 		if (currentNode is CompositeCutSceneNode) {
 			isCompositeNode = true;
 			CompositeCutSceneNode composite = (CompositeCutSceneNode)currentNode;
@@ -77,16 +80,31 @@ public class CutSceneSystem : MonoBehaviour {
 				dialogue = (Dialogue)currentNode;
 			}
 		}
+		if(dialogue == null){
+			toggleUIVisibility(false);
+		}
+
+		foreach (AnimationNode node in anims) {
+			node.animation.Play ();
+			/*foreach (AnimationState state in node.animation) {
+				state.normalizedTime = 0.5f;
+			}*/
+		}
 		runCurrentNode();
 
 	}
 
 	private void runCurrentNode(){
 		textBox.text = "";
-		talkImage.sprite = dialogue.characterImage;
-		hasDialogueFinished = false;
-		StartCoroutine ("showText");
-		//play anims HERE TODO
+		tapOccured = false;
+		if (dialogue != null) {
+			talkImage.sprite = dialogue.characterImage;
+			hasDialogueFinished = false;
+			StartCoroutine ("showText");
+		} else {
+			hasDialogueFinished = true;
+		}
+		StartCoroutine ("checkForEndOfNode");
 
 	}
 
@@ -99,15 +117,51 @@ public class CutSceneSystem : MonoBehaviour {
 		checkForEndOfNode ();
 	}
 
-	 void checkForEndOfNode(){
-		if(hasDialogueFinished){
-				jumpToNodeAndPLay(++currentIndexNode);
+	 IEnumerator checkForEndOfNode(){
+		bool allAnimationFinished = true;
+		while(true){
+			if(currentCutScene.pauseGame){
+				foreach (AnimationNode node in anims) {
+					if(node.animation.isPlaying){
+						allAnimationFinished = false;
+						break;
+					}
+				}
+
+				if(allAnimationFinished && hasDialogueFinished){
+					if(dialogue == null){
+						Debug.Log("FOCK1");
+						tapOccured = false;
+						break;
+					}else{
+						if(tapOccured){
+							Debug.Log("FOCK2");
+							tapOccured = false;
+							break;
+						}
+					}
+
+				}
+					
+			}else{
+
+			}
+			yield return null;
+			allAnimationFinished = true;
 		}
+		Debug.Log (" FIM");
+		jumpToNodeAndPLay(++currentIndexNode);
 
 	}
 
-	void toggleUIVisibility(){
-		chatBox.gameObject.SetActive (!chatBox.gameObject.activeSelf);
-		talkImage.gameObject.SetActive (!talkImage.gameObject.activeSelf);
+	void toggleUIVisibility(bool b){
+		chatBox.gameObject.SetActive (b);
+		talkImage.gameObject.SetActive (b);
+	}
+
+	public void tapAtChatBox(){
+		if(hasDialogueFinished && currentCutScene.pauseGame){
+			tapOccured = true;
+		}
 	}
 }
