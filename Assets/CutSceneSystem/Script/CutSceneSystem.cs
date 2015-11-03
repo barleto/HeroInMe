@@ -4,6 +4,100 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class CutSceneSystem : MonoBehaviour {
+	
+	enum NodeType {Animation, Dialogue};
+	
+	public Image talkImage;
+	public Image chatBox;
+	public Text textBox;
+	public GameObject mainCharacaterScript;
+	public CutScene currentCutScene;
+	public string SONZINHO_TODO = "SONZINHU DAiS lETRA TODO";//TODO
+	
+	private static CutSceneSystem singletonInstanece = null;
+	
+	private CutSceneNodes currentNode = null;
+	private int currentIndexNode = 0;
+	private bool tapOccured = false;
+	private bool continuePlaying = true;
+	
+	// Use this for initialization
+	void Start () {
+		toggleUIVisibility (false);
+		textBox.text = "";
+		playScene (currentCutScene);//TODO remove this
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+	
+	public static CutSceneSystem getInstanceInGame(){
+		if (singletonInstanece == null) {
+			singletonInstanece = GameObject.FindWithTag ("CutSceneSystem").GetComponent<CutSceneSystem>();
+		}
+		return singletonInstanece;
+		
+	}
+	
+	public void playScene(CutScene newScene){
+		if(newScene.nodeList.Count < 1){
+			return;
+		}
+		currentCutScene = newScene;
+		toggleUIVisibility (true);
+		currentIndexNode = 0;
+		continuePlaying = true;
+		StartCoroutine ("jumpToNodeAndPLay");
+	}
+	
+	public void stopScene(){
+		toggleUIVisibility (false);
+	}
+	
+	public void pauseScene(){
+		
+	}
+	
+	public IEnumerator jumpToNodeAndPLay(){
+		int index = currentIndexNode;
+		if (index >= currentCutScene.nodeList.Count || !continuePlaying) {
+			foreach (CutSceneNodes CSN in currentCutScene.nodeList) {
+				CSN.hasExecutionEnded = false;
+			}
+			currentCutScene = null;
+			toggleUIVisibility (false);
+			yield return null;
+		} else {
+			currentNode = currentCutScene.nodeList[index];
+			
+			currentNode.start ();
+			while(!currentNode.hasExecutionEnded && continuePlaying){
+				currentNode.update();
+				yield return null;
+			}
+			currentNode.end ();
+			
+			if(continuePlaying){
+				++currentIndexNode;
+				StartCoroutine ("jumpToNodeAndPLay");
+			}
+		}
+
+	}
+	
+	public void toggleUIVisibility(bool b){
+		chatBox.gameObject.SetActive (b);
+		talkImage.gameObject.SetActive (b);
+	}
+	
+	public void tapAtChatBox(){
+		currentNode.tapAtScreen ();
+	}
+}
+/*
+public class CutSceneSystem : MonoBehaviour {
 
 	enum NodeType {Animation, Dialogue};
 
@@ -13,6 +107,8 @@ public class CutSceneSystem : MonoBehaviour {
 	public GameObject mainCharacaterScript;
 	public CutScene currentCutScene;
 	public string SONZINHO_TODO = "SONZINHU DAiS lETRA TODO";//TODO
+
+	private static CutSceneSystem singletonInstanece = null;
 
 	private CutSceneNodes currentNode = null;
 	private int currentIndexNode = 0;
@@ -35,12 +131,21 @@ public class CutSceneSystem : MonoBehaviour {
 	
 	}
 
+	public static CutSceneSystem getInstanceInGame(){
+		if (singletonInstanece == null) {
+			singletonInstanece = GameObject.FindWithTag ("CutSceneSystem").GetComponent<CutSceneSystem>();
+		}
+		return singletonInstanece;
+
+	}
+
 	public void playScene(CutScene newScene){
 		if(newScene.nodeList.Count < 1){
 			return;
 		}
 		currentCutScene = newScene;
 		toggleUIVisibility (true);
+		currentIndexNode = 0;
 		jumpToNodeAndPLay (currentIndexNode);
 	}
 
@@ -54,6 +159,9 @@ public class CutSceneSystem : MonoBehaviour {
 
 	public void jumpToNodeAndPLay(int index){
 		if(index >= currentCutScene.nodeList.Count){
+			foreach(CutSceneNodes CSN in currentCutScene.nodeList){
+				CSN.executionHasEnded = false;
+			}
 			currentCutScene = null;
 			toggleUIVisibility (false);
 			return;
@@ -86,9 +194,9 @@ public class CutSceneSystem : MonoBehaviour {
 
 		foreach (AnimationNode node in anims) {
 			node.animation.Play ();
-			/*foreach (AnimationState state in node.animation) {
-				state.normalizedTime = 0.5f;
-			}*/
+			//foreach (AnimationState state in node.animation) {
+				//state.normalizedTime = 0.5f;
+			//}
 		}
 		runCurrentNode();
 
@@ -130,12 +238,10 @@ public class CutSceneSystem : MonoBehaviour {
 
 				if(allAnimationFinished && hasDialogueFinished){
 					if(dialogue == null){
-						Debug.Log("FOCK1");
 						tapOccured = false;
 						break;
 					}else{
 						if(tapOccured){
-							Debug.Log("FOCK2");
 							tapOccured = false;
 							break;
 						}
@@ -149,7 +255,6 @@ public class CutSceneSystem : MonoBehaviour {
 			yield return null;
 			allAnimationFinished = true;
 		}
-		Debug.Log (" FIM");
 		jumpToNodeAndPLay(++currentIndexNode);
 
 	}
@@ -164,4 +269,4 @@ public class CutSceneSystem : MonoBehaviour {
 			tapOccured = true;
 		}
 	}
-}
+}*/

@@ -3,6 +3,173 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
+
+[CustomEditor(typeof(CutScene))]
+public class CutSceneEditor : Editor {
+	
+	CutScene cutScene;
+	private int index1,index2;
+	private bool grouping = false;
+	
+	enum TypesOfNode{Animation,Dialogue,Sound,Decision,Delegate,PlayOtherCutscene};
+	
+	public override void OnInspectorGUI(){
+		cutScene = (CutScene)target;
+		if(cutScene.nodeList == null){
+			cutScene.nodeList = new List<CutSceneNodes>();
+		}
+		//CutSceneSystem
+		cutScene.css = GameObject.Find("CutSceneSystem").GetComponent<CutSceneSystem>();
+		cutScene.css = (CutSceneSystem)EditorGUILayout.ObjectField ("Cut Scene System",cutScene.css, typeof(CutSceneSystem), true);
+		//draw bool options
+		bool pauseGame = GUILayout.Toggle (cutScene.pauseGame,"Pause The Game",GUILayout.Width(300));
+		cutScene.pauseGame = pauseGame;
+		
+		//show list
+		grouping = false;
+		foreach(CutSceneNodes nodeS in cutScene.nodeList){
+			GUILayout.BeginVertical("box");
+			
+			if(!(nodeS is CompositeCutSceneNode)){
+				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
+					cutScene.nodeList.Remove(nodeS);
+				}
+				nodeS.createUIDescription(cutScene);
+				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
+					if(GUILayout.Button("Group With Next Node")){
+						grouping = true;
+						index1 = cutScene.nodeList.IndexOf(nodeS);
+						index2 = index1+1;
+					}
+				}
+			}else{
+				CompositeCutSceneNode nodeC = (CompositeCutSceneNode)nodeS;
+				if(nodeC.children.Count>0){
+					for(int j=0;j<nodeC.children.Count;j++){
+						CutSceneNodes nodeSC = nodeC.children[j];
+						if(GUILayout.Button("- Delete",GUILayout.Width(100))){
+							nodeC.children.Remove(nodeSC);
+						}
+						nodeSC.createUIDescription(cutScene);
+						if(j+1 < nodeC.children.Count){
+							if(GUILayout.Button("-- Break Group Here --")){
+								CompositeCutSceneNode newComp = new CompositeCutSceneNode();
+								newComp.children = nodeC.children.GetRange(j+1,nodeC.children.Count - 1 - j);
+								nodeC.children.RemoveRange(j+1,nodeC.children.Count - 1 - j);
+								int index = cutScene.nodeList.IndexOf(nodeS);
+								cutScene.nodeList.Insert(index+1,newComp);
+							}
+						}
+					}
+				}
+				
+				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
+					if(GUILayout.Button("Group With Next Node")){
+						grouping = true;
+						index1 = cutScene.nodeList.IndexOf(nodeS);
+						index2 = index1+1;
+					}
+				}
+				
+			}
+			//nodeS.playWithNext = EditorGUILayout.Toggle("Play With Next: ",nodeS.playWithNext);
+			GUILayout.EndVertical();
+			EditorUtility.SetDirty(cutScene);
+		}
+		
+		//draw buttons for adding and subtracting the cutscene sequence:
+		GUILayout.BeginHorizontal ();
+		if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){
+			Dialogue newDialogue = new Dialogue();
+			newDialogue.cutScene = cutScene;
+			cutScene.nodeList.Add(newDialogue);
+			//EditorUtility.SetDirty(newDialogue);
+		}
+		if(GUILayout.Button("+Animation",GUILayout.Width(100))){
+			AnimationNode newAnimation = new AnimationNode();
+			newAnimation.cutScene = cutScene;
+			cutScene.nodeList.Add(newAnimation);
+		}
+		GUILayout.EndHorizontal ();
+		
+		if(grouping){
+			CutSceneNodes g1  = cutScene.nodeList[index1];
+			CutSceneNodes g2 = cutScene.nodeList[index2];
+			if(g1 is CompositeCutSceneNode){
+				if(g2 is CompositeCutSceneNode){
+					((CompositeCutSceneNode)g1).children.AddRange(((CompositeCutSceneNode)g2).children);
+					cutScene.nodeList.Remove(g2);
+				}else{
+					((CompositeCutSceneNode)g1).children.Add(g2);
+					cutScene.nodeList.Remove(g2);
+				}
+			}else{
+				if(g2 is CompositeCutSceneNode){
+					((CompositeCutSceneNode)g2).children.Insert(0,g1);
+					cutScene.nodeList.Remove(g1);
+				}else{
+					CompositeCutSceneNode composite = new CompositeCutSceneNode();
+					composite.children.Add(g1);
+					composite.children.Add(g2);
+					cutScene.nodeList.Insert(index2+1,composite);
+					cutScene.nodeList.Remove(g1);
+					cutScene.nodeList.Remove(g2);
+				}
+			}
+			grouping = false;
+		}
+		
+		foreach(CutSceneNodes nodeS in cutScene.nodeList){
+			if(nodeS is CompositeCutSceneNode){
+				if(((CompositeCutSceneNode)nodeS).children.Count < 1){
+					cutScene.nodeList.Remove(nodeS);
+				}else if(((CompositeCutSceneNode)nodeS).children.Count == 1){
+					int index = cutScene.nodeList.IndexOf(nodeS);
+					cutScene.nodeList.Insert(index+1,((CompositeCutSceneNode)nodeS).children[0]);
+					cutScene.nodeList.Remove(nodeS);
+				}
+			}
+		}
+		
+		
+	}
+	
+	[MenuItem("Cut Scene System/Add CutScene Component to gameObject")]
+	static void addCutsceneComponentToGameObject(){
+		GameObject obj = (GameObject)Selection.activeGameObject;
+		if(obj!=null){
+			Undo.AddComponent(obj,typeof(CutScene));
+		}
+	}
+	
+	// Validate the menu item defined by the function above.
+	// The menu item will be disabled if this function returns false.
+	[MenuItem ("Cut Scene System/Add CutScene Component to gameObject", true)]
+	static bool ValidateaddCutsceneComponentToGameObject () {
+		// Return false if no transform is selected.
+		return (Selection.activeGameObject != null);
+	}
+	
+	[MenuItem("Cut Scene System/Add Cut Scene System To Scene")]
+	static void CreateCutSceneSytem (MenuCommand command) {
+		if(GameObject.Find("CutSceneSystem") == null){
+			GameObject sys= Instantiate(Resources.Load("CutSceneSystem", typeof(GameObject))) as GameObject;
+			sys.name = "CutSceneSystem";
+			Undo.RegisterCreatedObjectUndo(sys, "Create " + sys.name);
+		}
+	}
+	
+	[MenuItem("Cut Scene System/Add Cut Scene System To Scene",true)]
+	static bool ValidateCreateCutSceneSytem (MenuCommand command) {
+		if(GameObject.Find("CutSceneSystem") == null){
+			return true;
+		}
+		return false;
+	}
+}
+
+
+/*
 [CustomEditor(typeof(CutScene))]
 public class CutSceneEditor : Editor {
 
@@ -217,4 +384,11 @@ public class CutSceneEditor : Editor {
 		}
 		return false;
 	}
-}
+}*/
+
+/*
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+*/
