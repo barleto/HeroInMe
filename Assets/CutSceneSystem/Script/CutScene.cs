@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class CutScene : MonoBehaviour {
-	
+
 	public List<CutSceneNodes> nodeList = new List<CutSceneNodes>();
 	public bool pauseGame = true;
 	public CutSceneSystem css;

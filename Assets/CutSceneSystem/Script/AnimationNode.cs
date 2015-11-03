@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEditor;
 
+[System.Serializable]
 public class AnimationNode : CutSceneNodes {
 	public Animation animation = null;
 

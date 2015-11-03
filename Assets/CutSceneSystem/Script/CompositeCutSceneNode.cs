@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class CompositeCutSceneNode : CutSceneNodes {
 	public List<CutSceneNodes> children = new List<CutSceneNodes>();
 

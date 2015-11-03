@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
+[System.Serializable]
 public class Dialogue : CutSceneNodes {
 	public Sprite characterImage;
 	public string text;

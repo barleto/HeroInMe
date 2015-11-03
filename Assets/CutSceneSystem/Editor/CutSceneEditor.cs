@@ -15,6 +15,7 @@ public class CutSceneEditor : Editor {
 	
 	public override void OnInspectorGUI(){
 		cutScene = (CutScene)target;
+
 		if(cutScene.nodeList == null){
 			cutScene.nodeList = new List<CutSceneNodes>();
 		}

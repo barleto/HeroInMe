@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class CutSceneSystem : MonoBehaviour {
 	
@@ -12,6 +13,7 @@ public class CutSceneSystem : MonoBehaviour {
 	public Text textBox;
 	public GameObject mainCharacaterScript;
 	public CutScene currentCutScene;
+	public UnityEvent onCutScenePause;
 	public string SONZINHO_TODO = "SONZINHU DAiS lETRA TODO";//TODO
 	
 	private static CutSceneSystem singletonInstanece = null;
@@ -46,6 +48,9 @@ public class CutSceneSystem : MonoBehaviour {
 			return;
 		}
 		currentCutScene = newScene;
+		if(currentCutScene.pauseGame){
+			onCutScenePause.Invoke ();
+		}
 		toggleUIVisibility (true);
 		currentIndexNode = 0;
 		continuePlaying = true;
