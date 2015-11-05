@@ -12,11 +12,8 @@ public class Player : MonoBehaviour, IPlayerController {
 	private Animator animator;
 	private bool facingRight = true;
 	private bool inAir = false;
-<<<<<<< HEAD
-=======
 	private bool isWalking = false;
 	private bool isRunning = false;
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
 	private SpriteRenderer weaponSpriteRenderer;
 	private BoxCollider2D weaponBoxCollider2D;
 
@@ -25,8 +22,6 @@ public class Player : MonoBehaviour, IPlayerController {
 		animator = GetComponent<Animator>();
 		weaponSpriteRenderer = Weapon.GetComponent<SpriteRenderer>();
 		weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
-<<<<<<< HEAD
-=======
 		currentSpeed = speed;
 	}
 
@@ -38,7 +33,6 @@ public class Player : MonoBehaviour, IPlayerController {
 				isRunning = true;
 			}
 		}
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
 	}
 
 	// Will move the player given a movement vector
@@ -110,7 +104,6 @@ public class Player : MonoBehaviour, IPlayerController {
 				animator.SetTrigger ("Landing");
 			}
 			inAir = false;
-<<<<<<< HEAD
 			animator.SetTrigger("Landing");
 			animator.SetBool("Falling", false);
 		} else if (col.gameObject.CompareTag("PickUp")) {
@@ -120,10 +113,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		} else if(col.gameObject.CompareTag("Key")){
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
-=======
 			animator.SetBool ("Falling", false);
-		}
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
 	}
 
 	void OnTriggerExit2D(Collider2D col){
@@ -132,11 +122,7 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetBool("Falling", true);
 		}
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
 	void OnCollisionEnter2D(Collision2D col) {
 		if(col.transform.CompareTag("Platform")) {
 			transform.parent = col.transform;
@@ -148,11 +134,8 @@ public class Player : MonoBehaviour, IPlayerController {
 			transform.SetParent(null);
 		}
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
+
 	public void EquipItem (Sprite sprite) {
 		
 		weaponSpriteRenderer.sprite = sprite;
@@ -160,8 +143,5 @@ public class Player : MonoBehaviour, IPlayerController {
 		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
 		weaponBoxCollider2D.enabled = false;
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 64389422d29d02c91174cbbb99ad4e952bbd3c96
