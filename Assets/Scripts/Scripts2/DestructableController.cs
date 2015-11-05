@@ -5,7 +5,7 @@ public class DestructableController : MonoBehaviour {
 
 	private Material material;
 	private bool isActive = true;
-	private int hp = 4;
+	private int hp = 2;
 
 	// Use this for initialization
 	void Start () {

@@ -3,11 +3,15 @@ using System.Collections;
 
 public interface IPlayerController {
 
-	//moves Player according to inputs
+	//Moves Player according to inputs
 	void MovePlayer(Vector2 movement);
 	
-	//make player attack
-	void Attack();
+	//Make Player attack in melee range
+	void AttackMelee(int state);
 
-	void EquipItem (Sprite sprite);
+	//Make Player attack in distance
+	void AttackRanged(Vector2 direction);
+
+	//Makes Player equip item
+	void EquipItem ();
 }

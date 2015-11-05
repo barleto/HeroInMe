@@ -18,11 +18,11 @@ public class TriggerObjectController : MonoBehaviour {
 
 	//Função chamada quando o trigger é ativado
 	public void Action () {
-		target.GetComponent<IPlayerController>().EquipItem(sr.sprite);
-		Destroy();
+		target.GetComponent<IPlayerController>().EquipItem();
+		Destroy (this.gameObject);
 	}
 
-	void Destroy () {
-		gameObject.SetActive(false);
-	}
+//	void Destroy () {
+//		gameObject.SetActive(false);
+//	}
 }

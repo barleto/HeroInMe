@@ -4,7 +4,10 @@ using System.Collections;
 public class Player : MonoBehaviour, IPlayerController {
 	
 	public float speed;
+	public float shotSpeed;
 	public GameObject Weapon;
+	public GameObject projectile;
+	public GameObject meleeWeapon;
 
 	private float currentSpeed;
 	private float walkingTimer = 2;
@@ -14,14 +17,10 @@ public class Player : MonoBehaviour, IPlayerController {
 	private bool inAir = false;
 	private bool isWalking = false;
 	private bool isRunning = false;
-	private SpriteRenderer weaponSpriteRenderer;
-	private BoxCollider2D weaponBoxCollider2D;
 
 	void Awake () {
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		weaponSpriteRenderer = Weapon.GetComponent<SpriteRenderer>();
-		weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
 		currentSpeed = speed;
 	}
 
@@ -37,9 +36,9 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	// Will move the player given a movement vector
 	public void MovePlayer(Vector2 movement){
-		movement.Normalize (); //normalizes the vector
+//		movement.Normalize (); //normalizes the vector
 		//Horizontal movement or stop walking movement
-		if (Mathf.Abs (movement.x) > movement.y || (movement.x == 0 && movement.y == 0)) {
+		if (movement.y == 0) {
 			// Changes through player animations
 			if (movement.x == 0) {
 				if(isWalking){
@@ -49,8 +48,9 @@ public class Player : MonoBehaviour, IPlayerController {
 					animator.SetBool("Running", false);
 					isRunning = false;
 					currentSpeed = speed;
-					walkingTimer = 2;
 				}
+				walkingTimer = 2;
+
 			} else if(!isRunning){
 				animator.SetBool ("Walking", true);
 				isWalking = true;
@@ -75,8 +75,25 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 	}
 	
-	public void Attack(){
-		animator.SetTrigger ("Attacking");
+	public void AttackMelee(int state){
+		if (state == 0) {
+			animator.SetTrigger ("Attacking");
+		} else if (state == 1) {
+			animator.SetTrigger ("Combo1");
+		} else {
+			animator.SetTrigger ("Combo2");
+		}
+	}
+
+	public 	void AttackRanged(Vector2 direction){
+		direction.Normalize ();
+		GameObject clone = (GameObject) Instantiate(projectile, transform.position, transform.rotation);
+		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
+
+		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		
+		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
 	}
 	
 	// Flips player sprites scale
@@ -127,11 +144,15 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 	}
 	
-	public void EquipItem (Sprite sprite) {
-		
-		weaponSpriteRenderer.sprite = sprite;
-		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
-		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
-		weaponBoxCollider2D.enabled = false;
+	public void EquipItem () {
+
+		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
+		sword.transform.parent = Weapon.transform;
+
+		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
+		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
+		weaponBoxCollider2D.size = swordCollider2D.size;
+		weaponBoxCollider2D.offset = swordCollider2D.offset;
+		swordCollider2D.enabled = false;
 	}
 }
