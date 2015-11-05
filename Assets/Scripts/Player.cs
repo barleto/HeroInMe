@@ -121,8 +121,16 @@ public class Player : MonoBehaviour, IPlayerController {
 				animator.SetTrigger ("Landing");
 			}
 			inAir = false;
+			animator.SetTrigger("Landing");
+			animator.SetBool("Falling", false);
+		} else if (col.gameObject.CompareTag("PickUp")) {
+			col.gameObject.GetComponent<TriggerObjectController>().Action();
+		} else if (col.gameObject.CompareTag("DeathTrigger")) {
+			transform.position = new Vector3 (0, 2, 0);
+		} else if(col.gameObject.CompareTag("Key")){
+			col.gameObject.GetComponent<CoinController>().Action();
+		} 
 			animator.SetBool ("Falling", false);
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D col){
@@ -131,7 +139,7 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetBool("Falling", true);
 		}
 	}
-	
+
 	void OnCollisionEnter2D(Collision2D col) {
 		if(col.transform.CompareTag("Platform")) {
 			transform.parent = col.transform;
@@ -143,6 +151,7 @@ public class Player : MonoBehaviour, IPlayerController {
 			transform.SetParent(null);
 		}
 	}
+<<<<<<< HEAD
 	
 	public void EquipItem () {
 
@@ -154,5 +163,16 @@ public class Player : MonoBehaviour, IPlayerController {
 		weaponBoxCollider2D.size = swordCollider2D.size;
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
 		swordCollider2D.enabled = false;
+=======
+
+
+	public void EquipItem (Sprite sprite) {
+		
+		weaponSpriteRenderer.sprite = sprite;
+		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
+		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
+		weaponBoxCollider2D.enabled = false;
+>>>>>>> dekkoh
 	}
+
 }
