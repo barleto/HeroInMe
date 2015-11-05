@@ -127,6 +127,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 520820252}
+  - 114: {fileID: 520820253}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -146,6 +147,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &520820253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 520820251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeList: []
+  pauseGame: 1
+  css: {fileID: 1795752473}
 --- !u!1 &594770654
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +360,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 22434176, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -420,7 +439,7 @@ Prefab:
     - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: currentCutScene
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 520820253}
     - target: {fileID: 186046, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -428,6 +447,34 @@ Prefab:
     - target: {fileID: 135948, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 594770657}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405148, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}
+      propertyPath: onCutScenePause.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816a033d6cca9484e9d492cc2c475356, type: 2}

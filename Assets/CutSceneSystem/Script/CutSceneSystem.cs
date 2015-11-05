@@ -14,7 +14,6 @@ public class CutSceneSystem : MonoBehaviour {
 	public GameObject mainCharacaterScript;
 	public CutScene currentCutScene;
 	public UnityEvent onCutScenePause;
-	public string SONZINHO_TODO = "SONZINHU DAiS lETRA TODO";//TODO
 	
 	private static CutSceneSystem singletonInstanece = null;
 	
