@@ -59,7 +59,8 @@ public class PlayerControls : MonoBehaviour {
 		// Track a single touch as a direction control.
 		if (Input.touchCount > 0) {
 			var touch = Input.GetTouch(0);
-			
+
+
 			// Handle finger movements based on touch phase.
 			switch (touch.phase) {
 				// Record initial touch position.
@@ -74,7 +75,7 @@ public class PlayerControls : MonoBehaviour {
 				break;
 
 			case TouchPhase.Stationary:
-				if(Time.time - touchTime > 1 && !castingRangedAttack){
+				if(Time.time - touchTime > 1 && !castingRangedAttack && touch.position.x > Screen.width / 2){
 					longPressDetected = true;
 					jumpDetected = false;
 
