@@ -121,8 +121,15 @@ public class Player : MonoBehaviour, IPlayerController {
 				animator.SetTrigger ("Landing");
 			}
 			inAir = false;
+			animator.SetBool("Falling", false);
+		} else if (col.gameObject.CompareTag("PickUp")) {
+			col.gameObject.GetComponent<TriggerObjectController>().Action();
+		} else if (col.gameObject.CompareTag("DeathTrigger")) {
+			transform.position = new Vector3 (0, 2, 0);
+		} else if(col.gameObject.CompareTag("Key")){
+			col.gameObject.GetComponent<CoinController>().Action();
+		} 
 			animator.SetBool ("Falling", false);
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D col){
@@ -131,7 +138,7 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetBool("Falling", true);
 		}
 	}
-	
+
 	void OnCollisionEnter2D(Collision2D col) {
 		if(col.transform.CompareTag("Platform")) {
 			transform.parent = col.transform;
@@ -146,11 +153,11 @@ public class Player : MonoBehaviour, IPlayerController {
 	
 	public void EquipItem () {
 
-		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
+		GameObject sword = (GameObject)Instantiate (meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
 		sword.transform.parent = Weapon.transform;
 
 		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
-		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
+		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D> ();
 		weaponBoxCollider2D.size = swordCollider2D.size;
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
 		swordCollider2D.enabled = false;
