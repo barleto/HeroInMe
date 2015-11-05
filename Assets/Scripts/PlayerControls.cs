@@ -5,10 +5,12 @@ public class PlayerControls : MonoBehaviour {
 
 	protected IPlayerController player = null;
 	private Vector2 startPos;
+	private Vector2 endPos;
 	private Vector2 direction;
 	private bool directionChosen;
 	private bool willMove;
 	private bool attack = false;
+	private bool alreadyMoved = false;
 
 	void Awake () {
 		// Gets the script associated with the player controller interface
@@ -26,6 +28,7 @@ public class PlayerControls : MonoBehaviour {
 			case TouchPhase.Began:
 				startPos = touch.position;
 				directionChosen = false;
+				alreadyMoved = false;
 				break;
 				
 				// Determine direction by comparing the current touch position with the initial one.
@@ -48,11 +51,13 @@ public class PlayerControls : MonoBehaviour {
 		if (directionChosen) {
 			if (willMove) { // swipe
 				player.MovePlayer (direction);
-			} else {
-				player.MovePlayer(new Vector2(0, 0));
+			} else if(alreadyMoved == false){
+				player.MovePlayer (new Vector2 (0, 0));
+				player.AttackRanged(direction);
+				alreadyMoved = true;
 			}
 		} else if (attack) {
-			player.Attack();
+			player.AttackMelee (0);
 			attack = false;
 		}
 	}
