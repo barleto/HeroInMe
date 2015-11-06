@@ -6,7 +6,8 @@ using UnityEditor;
 public class AnimationNode : CutSceneNodes {
 	public Animation animation = null;
 
-	public override void createUIDescription(CutScene cutScene){
+
+	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 		AnimationNode node = this;
 		GUILayout.Label("<<Animation>>");
 		node.animation = (Animation)EditorGUILayout.ObjectField ("Animation: ",node.animation, typeof(Animation), true);

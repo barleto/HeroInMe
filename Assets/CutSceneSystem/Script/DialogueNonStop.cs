@@ -16,7 +16,7 @@ public class DialogueNonStop : CutSceneNodes {
 	private bool hasFinishedWritingText = false;
 	private float countTime = 0;
 
-	public override void createUIDescription(CutScene cutScene){
+	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 		DialogueNonStop node = this;
 		GUILayout.Label("<<Dialogue>>");
 		float time = EditorGUILayout.Slider("Show Speed",node.letterPause,0,1f);

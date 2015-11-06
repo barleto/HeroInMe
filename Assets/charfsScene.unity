@@ -249,9 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7eecba7679e747e98f7e2c19a085571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeList:
-  - {fileID: 1773342514}
-  - {fileID: 2111871234}
+  nodeList: []
   pauseGame: 1
   css: {fileID: 641989412}
 --- !u!1 &594770654
@@ -350,38 +348,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1928753348}
   m_Script: {fileID: 11500000, guid: 5bf2f5ae3f6e0447cb735a86d02dfda2, type: 3}
---- !u!114 &990672388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8ad53b0a5d141a7b103fc4c8a03ee8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasExecutionEnded: 0
-  cutScene: {fileID: 520820253}
-  text: hu3hu3hu3hu3hu3
-  timeToLive: 4
-  letterPause: .100000001
-  canvas: {fileID: 373387905}
-  chatBox: {fileID: 1783982255}
---- !u!114 &1074422186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30f68883eec02496e85912e348ccedbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasExecutionEnded: 0
-  cutScene: {fileID: 520820253}
-  animation: {fileID: 594770659}
 --- !u!1 &1682538458
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,22 +450,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &1773342514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasExecutionEnded: 0
-  cutScene: {fileID: 520820253}
-  characterImage: {fileID: 21300000, guid: 65fc2ec6163c04c468bc52942639dca0, type: 3}
-  text: afegesfdgsdfg
-  letterPause: .100000001
 --- !u!1 &1783982254
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,19 +568,3 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1c3918d60f324bf79829c422f31e295, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &2111871234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867bbf66f4a424ae3ad5bcdf3f7594ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasExecutionEnded: 0
-  cutScene: {fileID: 0}
-  children:
-  - {fileID: 990672388}
-  - {fileID: 1074422186}

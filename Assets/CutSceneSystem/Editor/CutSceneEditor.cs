@@ -11,12 +11,11 @@ public class CutSceneEditor : Editor {
 	private int index1,index2;
 	private bool grouping = false;
 	
-	enum TypesOfNode{Animation,Dialogue,DialogueNonStop};
+	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode};
 	private TypesOfNode type = TypesOfNode.Animation;
 	
 	public override void OnInspectorGUI(){
 		cutScene = (CutScene)target;
-
 		if(cutScene.nodeList == null){
 			cutScene.nodeList = new List<CutSceneNodes>();
 		}
@@ -36,7 +35,7 @@ public class CutSceneEditor : Editor {
 				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
 					cutScene.nodeList.Remove(nodeS);
 				}
-				nodeS.createUIDescription(cutScene);
+				nodeS.createUIDescription(cutScene,serializedObject);
 				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
 					if(GUILayout.Button("Group With Next Node")){
 						grouping = true;
@@ -52,7 +51,7 @@ public class CutSceneEditor : Editor {
 						if(GUILayout.Button("- Delete",GUILayout.Width(100))){
 							nodeC.children.Remove(nodeSC);
 						}
-						nodeSC.createUIDescription(cutScene);
+						nodeSC.createUIDescription(cutScene,serializedObject);
 						if(j+1 < nodeC.children.Count){
 							if(GUILayout.Button("-- Break Group Here --")){
 								CompositeCutSceneNode newComp = new CompositeCutSceneNode();
@@ -98,6 +97,11 @@ public class CutSceneEditor : Editor {
 				DialogueNonStop newDialogueNonStop = new DialogueNonStop();
 				newDialogueNonStop.cutScene = cutScene;
 				cutScene.nodeList.Add(newDialogueNonStop);
+				break;
+			case TypesOfNode.ExecuteFunctionNode:
+				ExecuteFunctionNode newExecuteFunctionNode = new ExecuteFunctionNode();
+				newExecuteFunctionNode.cutScene = cutScene;
+				cutScene.nodeList.Add(newExecuteFunctionNode);
 				break;
 			}
 		}
@@ -152,7 +156,10 @@ public class CutSceneEditor : Editor {
 				}
 			}
 		}
-		
+
+		if (GUI.changed) {
+			serializedObject.ApplyModifiedProperties();
+		}
 		
 	}
 	

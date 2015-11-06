@@ -10,7 +10,7 @@ public class CutSceneNodes : ScriptableObject{
 
 	/*In this function, you define what will appear in the UI of the CutScene.
 	Just populate with GUILayout funcitons*/
-	virtual public void createUIDescription(CutScene cutScene){
+	virtual public void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 
 	}
 

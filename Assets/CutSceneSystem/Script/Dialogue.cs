@@ -14,7 +14,7 @@ public class Dialogue : CutSceneNodes {
 	private Text textBox;
 	private bool hasFinishedWritingText = false;
 
-	public override void createUIDescription(CutScene cutScene){
+	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 		Dialogue node = this;
 		GUILayout.Label("<<Dialogue>>");
 		float time = EditorGUILayout.Slider("Show Speed",node.letterPause,0,1f);
