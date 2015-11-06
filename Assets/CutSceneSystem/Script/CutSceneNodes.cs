@@ -16,7 +16,7 @@ public class CutSceneNodes : ScriptableObject{
 
 	//executed once to initialize the node
 	virtual public void start(){
-		cutScene.css.toggleUIVisibility (true);
+		//cutScene.css.toggleUIVisibility (true);
 	}
 
 	//executed each frame
@@ -25,7 +25,7 @@ public class CutSceneNodes : ScriptableObject{
 
 	//executed when the node finished executing. Finalize thng if you want to.
 	virtual public void end(){
-		cutScene.css.toggleUIVisibility (false);
+		//cutScene.css.toggleUIVisibility (false);
 	}
 
 	//executed each time the chatbox of the cutscene system is taped/clicked

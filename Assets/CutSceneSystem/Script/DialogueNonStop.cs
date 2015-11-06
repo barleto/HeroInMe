@@ -5,61 +5,63 @@ using System.Collections.Generic;
 using UnityEditor;
 
 [System.Serializable]
-public class Dialogue : CutSceneNodes {
-	public Sprite characterImage;
+public class DialogueNonStop : CutSceneNodes {
 	public string text;
+	public float timeToLive = 1.0f;
 	[Range(0.1f,5f)]
 	public float letterPause = 0.1f;
+	public Canvas canvas;
+	public Text chatBox;
 	
-	private Text textBox;
 	private bool hasFinishedWritingText = false;
+	private float countTime = 0;
 
 	public override void createUIDescription(CutScene cutScene){
-		Dialogue node = this;
+		DialogueNonStop node = this;
 		GUILayout.Label("<<Dialogue>>");
 		float time = EditorGUILayout.Slider("Show Speed",node.letterPause,0,1f);
 		if(time >= 0f && time <= 10){
 			node.letterPause = time;
 		}
-		GUILayout.BeginHorizontal();
-		node.characterImage = (Sprite)EditorGUILayout.ObjectField ("Icon: ",node.characterImage, typeof(Sprite), true);
-		GUILayout.EndHorizontal();
+		Canvas last = canvas;
+		node.canvas = (Canvas)EditorGUILayout.ObjectField ("Chat Box Canvas: ",node.canvas, typeof(Canvas), true);
+		if(node.canvas != last && canvas != null){
+			node.chatBox = canvas.GetComponentInChildren<Text>();
+		}
+		node.chatBox = (Text)EditorGUILayout.ObjectField ("Chat Box UIText: ",node.chatBox, typeof(Text), true);
+		node.timeToLive = EditorGUILayout.FloatField("Time To Live",node.timeToLive);
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Text: ");	
-		node.text = EditorGUILayout.TextArea(((Dialogue)node).text,GUILayout.Width(300),GUILayout.Height(60));
+		node.text = EditorGUILayout.TextArea(node.text,GUILayout.Width(300),GUILayout.Height(60));
 		GUILayout.EndHorizontal();
 	}
 
 	public override void start(){
-		base.start ();
-		cutScene.css.gameObject.SetActive (true);
-		cutScene.css.talkImage.sprite = characterImage;
-		textBox = cutScene.css.textBox;
-		textBox.text = "";
-		hasFinishedWritingText = false;
+		canvas.gameObject.SetActive (true);
 		cutScene.StartCoroutine (showText ());
+		chatBox.text = "";
+		countTime = 0;
 	}
 	
 	public override  void update(){
-
+		countTime += Time.deltaTime;
+		if(countTime >= timeToLive){
+			hasExecutionEnded = true;
+		}
 	}
 	
 	public override  void end(){
-		base.end ();
-		cutScene.css.toggleUIVisibility (false);
-		hasFinishedWritingText = false;
+		canvas.gameObject.SetActive (false);
 	}
 
 	public override void tapAtScreen ()
 	{
-		if(hasFinishedWritingText){
-			hasExecutionEnded = true;
-		}
+
 	}
 
 	public IEnumerator showText () {
 		foreach (char letter in text.ToCharArray()) {
-			textBox.text += letter;
+			chatBox.text += letter;
 			yield return new WaitForSeconds (letterPause);
 		}
 		hasFinishedWritingText = true;

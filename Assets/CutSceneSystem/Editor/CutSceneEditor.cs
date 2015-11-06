@@ -11,7 +11,8 @@ public class CutSceneEditor : Editor {
 	private int index1,index2;
 	private bool grouping = false;
 	
-	enum TypesOfNode{Animation,Dialogue,Sound,Decision,Delegate,PlayOtherCutscene};
+	enum TypesOfNode{Animation,Dialogue,DialogueNonStop};
+	private TypesOfNode type = TypesOfNode.Animation;
 	
 	public override void OnInspectorGUI(){
 		cutScene = (CutScene)target;
@@ -80,7 +81,27 @@ public class CutSceneEditor : Editor {
 		
 		//draw buttons for adding and subtracting the cutscene sequence:
 		GUILayout.BeginHorizontal ();
-		if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){
+		type = (TypesOfNode)EditorGUILayout.EnumPopup ("Type of node: ", type);
+		if(GUILayout.Button("Add Node",GUILayout.Width(100))){
+			switch(type){
+			case TypesOfNode.Animation:
+				AnimationNode newAnimation = new AnimationNode();
+				newAnimation.cutScene = cutScene;
+				cutScene.nodeList.Add(newAnimation);
+				break;
+			case TypesOfNode.Dialogue:
+				Dialogue newDialogue = new Dialogue();
+				newDialogue.cutScene = cutScene;
+				cutScene.nodeList.Add(newDialogue);
+				break;
+			case TypesOfNode.DialogueNonStop:
+				DialogueNonStop newDialogueNonStop = new DialogueNonStop();
+				newDialogueNonStop.cutScene = cutScene;
+				cutScene.nodeList.Add(newDialogueNonStop);
+				break;
+			}
+		}
+		/*if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){
 			Dialogue newDialogue = new Dialogue();
 			newDialogue.cutScene = cutScene;
 			cutScene.nodeList.Add(newDialogue);
@@ -90,7 +111,7 @@ public class CutSceneEditor : Editor {
 			AnimationNode newAnimation = new AnimationNode();
 			newAnimation.cutScene = cutScene;
 			cutScene.nodeList.Add(newAnimation);
-		}
+		}*/
 		GUILayout.EndHorizontal ();
 		
 		if(grouping){

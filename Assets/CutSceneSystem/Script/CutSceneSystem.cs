@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class CutSceneSystem : MonoBehaviour {
 	
 	enum NodeType {Animation, Dialogue};
-	
+	public Canvas canvas;
 	public Image talkImage;
 	public Image chatBox;
 	public Text textBox;
@@ -92,8 +92,7 @@ public class CutSceneSystem : MonoBehaviour {
 	}
 	
 	public void toggleUIVisibility(bool b){
-		chatBox.gameObject.SetActive (b);
-		talkImage.gameObject.SetActive (b);
+		canvas.gameObject.SetActive (b);
 	}
 	
 	public void tapAtChatBox(){
