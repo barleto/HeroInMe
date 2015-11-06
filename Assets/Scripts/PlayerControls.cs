@@ -10,6 +10,9 @@ public class PlayerControls : MonoBehaviour {
 	private Vector2 normalizedDirection;
 	private Vector2 movement = new Vector2(0, 0);
 	private bool attack = false;
+<<<<<<< HEAD
+	private bool alreadyMoved = false;
+=======
 	private bool longPressDetected = false;
 	private bool jumpDetected = false;
 	private bool castingRangedAttack = false;
@@ -35,6 +38,7 @@ public class PlayerControls : MonoBehaviour {
 		movement = new Vector2(0, 0);
 		//TODO: Falar para o movment controller que nenhum dos botões de movimento está pressionado
 	}
+>>>>>>> dekkoh
 
 	void Awake () {
 		// Gets the script associated with the player controller interface
@@ -60,7 +64,12 @@ public class PlayerControls : MonoBehaviour {
 				// Record initial touch position.
 			case TouchPhase.Began:
 				startPos = touch.position;
+<<<<<<< HEAD
+				directionChosen = false;
+				alreadyMoved = false;
+=======
 				touchTime = Time.time;
+>>>>>>> dekkoh
 				break;
 
 			case TouchPhase.Stationary:
@@ -105,6 +114,23 @@ public class PlayerControls : MonoBehaviour {
 				break;
 			}
 		}
+<<<<<<< HEAD
+=======
+		// After user released his finger will decide which action to do
+<<<<<<< HEAD
+		if (directionChosen) {
+			if (willMove) { // swipe
+				player.MovePlayer (direction);
+			} else if(alreadyMoved == false){
+				player.MovePlayer (new Vector2 (0, 0));
+				player.AttackRanged(direction);
+				alreadyMoved = true;
+			}
+		} else if (attack) {
+			player.AttackMelee (0);
+=======
+
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b
 		if (attack) { 
 			if (castingRangedAttack) {
 				castingRangedAttack = false;
@@ -118,6 +144,7 @@ public class PlayerControls : MonoBehaviour {
 			}
 
 			comboTimer = comboWindow;
+>>>>>>> dekkoh
 			attack = false;
 
 		} else if (longPressDetected) {

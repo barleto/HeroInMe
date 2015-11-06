@@ -150,16 +150,42 @@ public class Player : MonoBehaviour, IPlayerController {
 			transform.SetParent(null);
 		}
 	}
+<<<<<<< HEAD
 	
 	public void EquipItem () {
+=======
+<<<<<<< HEAD
+	
+	public void EquipItem () {
+
+		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
+		sword.transform.parent = Weapon.transform;
+
+		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
+		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
+		weaponBoxCollider2D.size = swordCollider2D.size;
+		weaponBoxCollider2D.offset = swordCollider2D.offset;
+		swordCollider2D.enabled = false;
+=======
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b
 
 		GameObject sword = (GameObject)Instantiate (meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
 		sword.transform.parent = Weapon.transform;
 
+<<<<<<< HEAD
 		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
 		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D> ();
 		weaponBoxCollider2D.size = swordCollider2D.size;
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
 		swordCollider2D.enabled = false;
+=======
+	public void EquipItem (Sprite sprite) {
+		
+		weaponSpriteRenderer.sprite = sprite;
+		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
+		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
+		weaponBoxCollider2D.enabled = false;
+>>>>>>> dekkoh
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b
 	}
 }
