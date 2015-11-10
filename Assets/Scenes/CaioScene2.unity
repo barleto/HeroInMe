@@ -732,10 +732,15 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/CaioScene.unity
+=======
+<<<<<<< HEAD
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b:Assets/Scenes/LevelTest.unity
     - target: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
       propertyPath: meleeWeapon
       value: 
       objectReference: {fileID: 50994683}
+<<<<<<< HEAD:Assets/Scenes/CaioScene.unity
     - target: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
       propertyPath: shotSpeed
       value: 5
@@ -744,6 +749,7 @@ Prefab:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 2028054005}
+<<<<<<< HEAD:Assets/Scenes/CaioScene2.unity
     - target: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
       propertyPath: animation
       value: 
@@ -772,6 +778,16 @@ Prefab:
       propertyPath: walkingDuration
       value: .699999988
       objectReference: {fileID: 0}
+=======
+=======
+=======
+    - target: {fileID: 2094792, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: orthographic size
+      value: 7
+      objectReference: {fileID: 0}
+>>>>>>> dekkoh
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b:Assets/Scenes/LevelTest.unity
+>>>>>>> c4e085e3140153a0e6e0e7f556128d73407f258e:Assets/Scenes/CaioScene.unity
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
   m_IsPrefabParent: 0
@@ -6055,7 +6071,10 @@ GameObject:
   - 4: {fileID: 2028054008}
   - 212: {fileID: 2028054007}
   - 95: {fileID: 2028054006}
+<<<<<<< HEAD:Assets/Scenes/CaioScene.unity
   - 50: {fileID: 2028054009}
+=======
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b:Assets/Scenes/LevelTest.unity
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -6104,7 +6123,11 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+<<<<<<< HEAD:Assets/Scenes/CaioScene.unity
   m_Sprite: {fileID: 21300214, guid: 8dfcfc95baa0c4fc9b1338896ede01ff, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b:Assets/Scenes/LevelTest.unity
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &2028054008
 Transform:
@@ -6113,6 +6136,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2028054005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD:Assets/Scenes/CaioScene.unity
   m_LocalPosition: {x: -15.5600004, y: 1.57000005, z: 0}
   m_LocalScale: {x: 3.80220175, y: 3.55969763, z: 1}
   m_Children: []
@@ -6134,6 +6158,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+=======
+  m_LocalPosition: {x: .56621784, y: 2.13138151, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+>>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b:Assets/Scenes/LevelTest.unity
 --- !u!1 &2029372129
 GameObject:
   m_ObjectHideFlags: 0
