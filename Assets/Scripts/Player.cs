@@ -17,8 +17,12 @@ public class Player : MonoBehaviour, IPlayerController {
 	private bool inAir = false;
 	private bool isWalking = false;
 	private bool isRunning = false;
+	private bool alreadyStopped = false;
+
+	private bool isCastingRangedAttack = false;
 
 	void Awake () {
+
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		currentSpeed = speed;
@@ -36,6 +40,15 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	// Will move the player given a movement vector
 	public void MovePlayer(Vector2 movement){
+
+		if (alreadyStopped && movement.magnitude == 0) {
+			return;
+		}
+
+		if (isCastingRangedAttack) {
+			movement = new Vector2(0, 0);
+		}
+
 //		movement.Normalize (); //normalizes the vector
 		//Horizontal movement or stop walking movement
 		if (movement.y == 0) {
@@ -44,12 +57,15 @@ public class Player : MonoBehaviour, IPlayerController {
 				if(isWalking){
 					animator.SetBool ("Walking", false);
 					isWalking = false;
-				} else if(isRunning){
+				}
+				if(isRunning){
 					animator.SetBool("Running", false);
 					isRunning = false;
 					currentSpeed = speed;
 				}
 				walkingTimer = 2;
+
+				alreadyStopped = true;
 
 			} else if(!isRunning){
 				animator.SetBool ("Walking", true);
@@ -58,20 +74,26 @@ public class Player : MonoBehaviour, IPlayerController {
 				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
 					Flip ();
 				}
+
+				alreadyStopped = false;
 			} else {
 				animator.SetBool("Running", true);
 				currentSpeed = speed + 2;
 				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
 					Flip ();
 				}
+
+				alreadyStopped = false;
 			}
 			// Sets player movement
 			myBody.velocity = new Vector2 (currentSpeed * movement.x, myBody.velocity.y);
 
-		} else if(inAir == false){ //Vertical movement
+		} else if(inAir == false  && !isCastingRangedAttack){ //Vertical movement
 			myBody.velocity = new Vector2(myBody.velocity.x, 3*speed);
 			animator.SetTrigger("Jumping");
 			inAir = true;
+
+			alreadyStopped = false;
 		}
 	}
 	
@@ -86,6 +108,9 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 
 	public 	void AttackRanged(Vector2 direction){
+
+		isCastingRangedAttack = false;
+
 		direction.Normalize ();
 		GameObject clone = (GameObject) Instantiate(projectile, transform.position, transform.rotation);
 		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
@@ -94,6 +119,22 @@ public class Player : MonoBehaviour, IPlayerController {
 		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		
 		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
+	}
+
+	public void CastRangedAttack (Vector2 direction) {
+
+		isCastingRangedAttack = true;
+
+		//Vira o player para o sentido em que está mirando
+		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
+			Flip ();
+		}
+
+		//Para o player caso esteja em movimento
+		if (isRunning || isWalking) {
+			//currentSpeed = 0;
+			MovePlayer(new Vector2(0, 0));
+		}
 	}
 	
 	// Flips player sprites scale
@@ -105,6 +146,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
+
 		if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
 		} else if (col.gameObject.CompareTag("DeathTrigger")) {
