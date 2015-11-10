@@ -761,6 +761,10 @@ Prefab:
       propertyPath: leftButton
       value: 
       objectReference: {fileID: 1426367682}
+    - target: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: walkingDuration
+      value: .699999988
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
   m_IsPrefabParent: 0

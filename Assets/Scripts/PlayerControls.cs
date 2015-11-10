@@ -10,11 +10,15 @@ public class PlayerControls : MonoBehaviour {
 	private Vector2 normalizedDirection;
 	private Vector2 movement = new Vector2(0, 0);
 	private bool attack = false;
+
 	private bool swipeUpDetected = false;
 	private bool longPressDetected = false;
-	private int comboCount = -1;
+
 	private float comboWindow = 1.0f;
 	private float comboTimer;
+
+	private bool alreadyMoved = false;
+
 	private float touchTime;
 
 	//move o player para a direita
@@ -32,23 +36,13 @@ public class PlayerControls : MonoBehaviour {
 
 		movement = new Vector2(0, 0);
 	}
-
-
+	
 	void Awake () {
 		// Gets the script associated with the player controller interface
 		player = GetComponent<IPlayerController>();
 	}
 
 	void Update() {
-
-		//Contador de combo dos ataques melee
-		if (comboCount >= 0) {
-			comboTimer -= Time.deltaTime;
-			if (comboTimer <= 0) {
-				comboCount = -1;
-				comboTimer = comboWindow;
-			}
-		}
 
 		// Track a single touch as a direction control.
 
@@ -69,7 +63,11 @@ public class PlayerControls : MonoBehaviour {
 				// Record initial touch position.
 			case TouchPhase.Began:
 				startPos = touch.position;
+
+				alreadyMoved = false;
+
 				touchTime = Time.time;
+
 				break;
 
 				//Detecta long press, onde o tempo necessário é 0.7 segundo
@@ -99,11 +97,6 @@ public class PlayerControls : MonoBehaviour {
 				if (touch.position.x > Screen.width / 2) {
 					if (!swipeUpDetected || longPressDetected) {
 						attack = true;
-						//comboCount++;
-
-						if (comboCount > 2){
-							comboCount = 0;
-						}
 
 					} else {
 						swipeUpDetected = false;
@@ -112,7 +105,6 @@ public class PlayerControls : MonoBehaviour {
 				break;
 			}
 		}
-
 	}
 
 	void FixedUpdate() {
@@ -134,7 +126,6 @@ public class PlayerControls : MonoBehaviour {
 				//ranged attack
 				if (longPressDetected) {
 					touchTime = Time.time;//Impede que o player ataque duas vezes
-					comboCount = -1;
 					//Impede que a magia fique parada no lugar
 					if (direction.magnitude == 0) {
 						direction = new Vector2(1, 0);
@@ -146,7 +137,7 @@ public class PlayerControls : MonoBehaviour {
 					longPressDetected = false;
 				//melee attack
 				} else {
-					player.AttackMelee (comboCount);
+					player.AttackMelee ();
 				}
 				comboTimer = comboWindow;
 				attack = false;

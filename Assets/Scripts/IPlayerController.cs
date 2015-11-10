@@ -7,7 +7,7 @@ public interface IPlayerController {
 	void MovePlayer(Vector2 movement);
 	
 	//Make Player attack in melee range
-	void AttackMelee(int state);
+	void AttackMelee();
 
 	//Make Player attack in distance
 	void AttackRanged(Vector2 direction);
@@ -17,5 +17,8 @@ public interface IPlayerController {
 
 	//Makes Player equip item
 	void EquipItem ();
+
+	//Pauses Player Movement
+	void Pause ();
 
 }
