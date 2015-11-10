@@ -16,7 +16,7 @@ public class ExecuteFunctionNode : CutSceneNodes {
 	}
 
 	public override void start(){
-
+		cutScene.css.StartCoroutine(callInParallel());
 	}
 	
 	public override  void update(){
@@ -26,4 +26,10 @@ public class ExecuteFunctionNode : CutSceneNodes {
 	public override  void end(){
 
 	}
+
+	public IEnumerator callInParallel(){
+		this.eventCallees.Invoke ();
+		yield return null;
+	}
+
 }

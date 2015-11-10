@@ -98,6 +98,12 @@ public class CutSceneSystem : MonoBehaviour {
 	public void tapAtChatBox(){
 		currentNode.tapAtScreen ();
 	}
+
+	public void debugCall(){
+		for(int i = 0 ; i< 10000;i++){
+			Debug.Log ("Funfou");
+		}
+	}
 }
 /*
 public class CutSceneSystem : MonoBehaviour {

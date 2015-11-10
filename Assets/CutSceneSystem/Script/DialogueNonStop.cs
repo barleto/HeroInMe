@@ -26,9 +26,12 @@ public class DialogueNonStop : CutSceneNodes {
 		Canvas last = canvas;
 		node.canvas = (Canvas)EditorGUILayout.ObjectField ("Chat Box Canvas: ",node.canvas, typeof(Canvas), true);
 		if(node.canvas != last && canvas != null){
+			bool isActive = node.canvas.gameObject.activeSelf;
+			node.canvas.gameObject.SetActive(true);
 			node.chatBox = canvas.GetComponentInChildren<Text>();
+			node.canvas.gameObject.SetActive(isActive);
 		}
-		node.chatBox = (Text)EditorGUILayout.ObjectField ("Chat Box UIText: ",node.chatBox, typeof(Text), true);
+		node.chatBox = (Text)EditorGUILayout.ObjectField ("UIText inside above Canvas: ",node.chatBox, typeof(Text), true);
 		node.timeToLive = EditorGUILayout.FloatField("Time To Live",node.timeToLive);
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Text: ");	
@@ -38,8 +41,8 @@ public class DialogueNonStop : CutSceneNodes {
 
 	public override void start(){
 		canvas.gameObject.SetActive (true);
-		cutScene.StartCoroutine (showText ());
 		chatBox.text = "";
+		cutScene.StartCoroutine (showText ());
 		countTime = 0;
 	}
 	
