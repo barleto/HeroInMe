@@ -3,28 +3,13 @@ using System.Collections;
 
 public class DestructableController : MonoBehaviour {
 
-	private Material material;
-	private bool isActive = true;
-	private int hp = 2;
-
-	// Use this for initialization
-	void Start () {
-		material = GetComponent<Material>();
-	}
+	private int hp = 3;
 	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void OnTriggerEnter2D(Collider2D col2D){
-		if(col2D.gameObject.CompareTag("Weapon")){
-			if (hp <= 0){
-				gameObject.SetActive(false);
-			} else {
-				hp -= 1;
-			}
+	public void TakeDamage(){
+		hp--;
+		Debug.Log("take damage");
+		if(hp <= 0){
+			Destroy(this.gameObject);
 		}
 	}
-
 }

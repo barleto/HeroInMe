@@ -1,16 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &156422
+--- !u!1 &168792
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 487222}
-  - 212: {fileID: 21213490}
-  - 114: {fileID: 11470032}
-  - 61: {fileID: 6154496}
+  - 4: {fileID: 467818}
+  - 212: {fileID: 21227650}
+  - 61: {fileID: 6138890}
+  - 114: {fileID: 11465732}
   m_Layer: 0
   m_Name: Sword
   m_TagString: PickUp
@@ -18,24 +18,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &487222
+--- !u!4 &467818
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156422}
+  m_GameObject: {fileID: 168792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.1999998, y: 1.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6154496
+--- !u!61 &6138890
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156422}
+  m_GameObject: {fileID: 168792}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -43,24 +43,23 @@ BoxCollider2D:
   m_Offset: {x: -.0228469968, y: .434091806}
   serializedVersion: 2
   m_Size: {x: .670000017, y: 2.27999997}
---- !u!114 &11470032
+--- !u!114 &11465732
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156422}
+  m_GameObject: {fileID: 168792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abad2d0059db404898b1987ad454918, type: 3}
+  m_Script: {fileID: 11500000, guid: 3785ec60d7373457dbd8f057da569341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
---- !u!212 &21213490
+--- !u!212 &21227650
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156422}
+  m_GameObject: {fileID: 168792}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -90,5 +89,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 156422}
+  m_RootGameObject: {fileID: 168792}
   m_IsPrefabParent: 1

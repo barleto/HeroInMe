@@ -19,6 +19,7 @@ TagManager:
   - DeathTrigger
   - PickUp
   - Key
+  - Destructable
   layers:
   - Default
   - TransparentFX
