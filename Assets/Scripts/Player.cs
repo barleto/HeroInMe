@@ -17,6 +17,11 @@ public class Player : MonoBehaviour, IPlayerController {
 	private bool facingRight = true;
 	private bool inAir = false;
 	private bool isWalking = false;
+
+	private bool alreadyStopped = false;
+
+	private bool isCastingRangedAttack = false;
+
 	private bool grounded = true;
 	private int comboCount = -1;
 	private float comboWindow = 1.0f;
@@ -25,6 +30,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	private float walkingTimer;
 
 	void Awake () {
+
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		sphereCollider = GetComponent<CircleCollider2D>();
@@ -55,6 +61,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	// Will move the player given a movement vector
 	public void MovePlayer(Vector2 movement){
+
 		if (pause == false) {
 			//Horizontal movement
 			if (movement.y == 0) {
@@ -62,6 +69,7 @@ public class Player : MonoBehaviour, IPlayerController {
 				isWalking = true;
 				myBody.velocity = new Vector2 (currentSpeed * movement.x, myBody.velocity.y);
 				animator.SetFloat ("Speed", Mathf.Abs (movement.x) * currentSpeed);
+
 				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
 					Flip ();
 				} else if (movement.x == 0) { // Player stoped
@@ -102,6 +110,9 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 
 	public 	void AttackRanged(Vector2 direction){
+
+		isCastingRangedAttack = false;
+
 		direction.Normalize ();
 		GameObject clone = (GameObject) Instantiate(projectile, transform.position, transform.rotation);
 		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
@@ -110,6 +121,22 @@ public class Player : MonoBehaviour, IPlayerController {
 		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		
 		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
+	}
+
+	public void CastRangedAttack (Vector2 direction) {
+
+		isCastingRangedAttack = true;
+
+		//Vira o player para o sentido em que está mirando
+		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
+			Flip ();
+		}
+
+		//Para o player caso esteja em movimento
+		if ( isWalking) {
+			//currentSpeed = 0;
+			MovePlayer(new Vector2(0, 0));
+		}
 	}
 	
 	// Flips player sprites scale
@@ -121,6 +148,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
+
 		if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
 		} else if (col.gameObject.CompareTag("DeathTrigger")) {
@@ -163,11 +191,6 @@ public class Player : MonoBehaviour, IPlayerController {
 			transform.SetParent(null);
 		}
 	}
-<<<<<<< HEAD
-	
-	public void EquipItem () {
-=======
-<<<<<<< HEAD
 	
 	public void EquipItem () {
 
@@ -179,27 +202,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		weaponBoxCollider2D.size = swordCollider2D.size;
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
 		swordCollider2D.enabled = false;
-=======
->>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b
 
-		GameObject sword = (GameObject)Instantiate (meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
-		sword.transform.parent = Weapon.transform;
-
-<<<<<<< HEAD
-		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
-		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D> ();
-		weaponBoxCollider2D.size = swordCollider2D.size;
-		weaponBoxCollider2D.offset = swordCollider2D.offset;
-		swordCollider2D.enabled = false;
-=======
-	public void EquipItem (Sprite sprite) {
-		
-		weaponSpriteRenderer.sprite = sprite;
-		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
-		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
-		weaponBoxCollider2D.enabled = false;
->>>>>>> dekkoh
->>>>>>> ab074f02d0d523be374d85aa19e76fad179c383b
 	}
 
 	public void Pause(){
