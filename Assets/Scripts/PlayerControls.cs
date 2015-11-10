@@ -14,9 +14,6 @@ public class PlayerControls : MonoBehaviour {
 	private bool jumpDetected = false;
 	private bool castingRangedAttack = false;
 	private bool alreadyStopped = false;
-	private int comboCount = -1;
-	private float comboWindow = 1.0f;
-	private float comboTimer;
 	private float touchTime;
 
 	public void MoveRight () {
@@ -42,14 +39,6 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	void Update() {
-
-		if (comboCount >= 0) {
-			comboTimer -= Time.deltaTime;
-			if (comboTimer <= 0) {
-				comboCount = -1;
-				comboTimer = comboWindow;
-			}
-		}
 
 		// Track a single touch as a direction control.
 		if (Input.touchCount > 0) {
@@ -89,12 +78,6 @@ public class PlayerControls : MonoBehaviour {
 				if(touch.position.x > Screen.width / 2){
 					if (!jumpDetected) {
 						attack = true;
-						comboCount++;
-
-						if (comboCount > 2){
-							comboCount = 0;
-						}
-
 					} else {
 						jumpDetected = false;
 					}
@@ -108,16 +91,13 @@ public class PlayerControls : MonoBehaviour {
 		if (attack) { 
 			if (castingRangedAttack) {
 				castingRangedAttack = false;
-				comboCount = -1;
 				Debug.Log ("Release");
 				player.AttackRanged(direction);
 
 			} else {
-				print (comboCount);
-				player.AttackMelee (comboCount);
+				player.AttackMelee ();
 			}
 
-			comboTimer = comboWindow;
 			attack = false;
 
 		} else if (longPressDetected) {
