@@ -21,6 +21,7 @@ public interface IPlayerController {
 	//Pauses Player Movement
 	void Pause ();
 
+	//Make player take damage
 	void TakeDamage ();
 
 }

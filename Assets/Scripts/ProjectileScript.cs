@@ -19,12 +19,15 @@ public class ProjectileScript : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		//Colisao com inimigo
-		if(!col.gameObject.CompareTag("Player")){
-			Destroy (gameObject);
-		} else if (col.gameObject.CompareTag("Enemy")) {
+		if (col.gameObject.CompareTag("Enemy")) {
 			Destroy (col.gameObject); //TODO: Aplicar dano
 		} else if(col.gameObject.CompareTag("Destructable")){
 			col.gameObject.GetComponent<DestructableController>().TakeDamage();
+		}
+
+		//Destroi o projetil em qualquer colisão exceto com o jogador
+		if(!col.gameObject.CompareTag("Player")){
+			Destroy (gameObject);
 		}
 	}
 }

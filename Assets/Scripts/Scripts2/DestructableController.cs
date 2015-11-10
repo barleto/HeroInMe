@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestructableController : MonoBehaviour {
 
-	private int hp = 3;
+	public int hp;
 	
 	public void TakeDamage(){
 		hp--;

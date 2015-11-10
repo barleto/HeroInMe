@@ -845,10 +845,6 @@ Prefab:
       propertyPath: walkingDuration
       value: .699999988
       objectReference: {fileID: 0}
-    - target: {fileID: 9533324, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: c61db4f43b83e4daaab2bd7e8e5915a7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
   m_IsPrefabParent: 0
@@ -2870,7 +2866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebc891778024af1ad1e9ca249cdc39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
 --- !u!114 &908533449
 MonoBehaviour:
   m_ObjectHideFlags: 0
