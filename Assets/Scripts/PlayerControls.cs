@@ -14,9 +14,6 @@ public class PlayerControls : MonoBehaviour {
 	private bool swipeUpDetected = false;
 	private bool longPressDetected = false;
 
-	private float comboWindow = 1.0f;
-	private float comboTimer;
-
 	private bool alreadyMoved = false;
 
 	private float touchTime;
@@ -139,7 +136,6 @@ public class PlayerControls : MonoBehaviour {
 				} else {
 					player.AttackMelee ();
 				}
-				comboTimer = comboWindow;
 				attack = false;
 
 			//Reconhece um long press
