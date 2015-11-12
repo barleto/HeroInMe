@@ -10,15 +10,14 @@ public class Player : MonoBehaviour, IPlayerController {
 	public GameObject Weapon;
 	public GameObject projectile;
 	public GameObject meleeWeapon;
+	public GameObject castingHands;
 
 	private Rigidbody2D myBody;
 	private Animator animator;
 	private CircleCollider2D sphereCollider;
 	private bool pause = false;
 	private bool facingRight = true;
-	private bool inAir = false;
 	private bool isWalking = false;
-	private bool isCastingRangedAttack = false;
 	private bool grounded = true;
 	private int comboCount = -1;
 	private float comboWindow = 0.5f;
@@ -108,22 +107,20 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public 	void AttackRanged(Vector2 direction){
 
-		isCastingRangedAttack = false;
-
 		direction.Normalize ();
-		GameObject clone = (GameObject) Instantiate(projectile, transform.position, transform.rotation);
+		GameObject clone = (GameObject) Instantiate(projectile, castingHands.transform.position, castingHands.transform.rotation);
 		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
 
 		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		
 		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
+		animator.SetTrigger("Shot");
+		animator.SetFloat("Casting", 0f);
 	}
 
-	public void CastRangedAttack (Vector2 direction) {
+	public void CastRangedAttack (Vector2 direction, float duration) {
 
-		isCastingRangedAttack = true;
-
+		animator.SetFloat("Casting", duration);
 		//Vira o player para o sentido em que está mirando
 		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
 			Flip ();
@@ -133,6 +130,19 @@ public class Player : MonoBehaviour, IPlayerController {
 		if ( isWalking) {
 			//currentSpeed = 0;
 			MovePlayer(new Vector2(0, 0));
+		}
+
+		if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerReadyToShoot")){
+			//metodo sem blend tree
+//			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+//
+//			transform.RotateAround(transform.position, Vector3.forward, angle);
+//			castingHands.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+			//Metodo com blend tree
+			float angle = Mathf.Atan2(direction.y, direction.x);
+			float sin = Mathf.Sin(angle);
+			animator.SetFloat("CastAngle", sin);
 		}
 	}
 	

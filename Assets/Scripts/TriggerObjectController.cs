@@ -4,11 +4,9 @@ using System.Collections;
 public class TriggerObjectController : MonoBehaviour {
 
 	public GameObject target;
-	private SpriteRenderer sr;
 
 	// Use this for initialization
 	void Start () {
-		sr = gameObject.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame

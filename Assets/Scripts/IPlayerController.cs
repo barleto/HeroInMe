@@ -13,7 +13,7 @@ public interface IPlayerController {
 	void AttackRanged(Vector2 direction);
 
 	//Make Player aim ranged attack
-	void CastRangedAttack (Vector2 direction);
+	void CastRangedAttack (Vector2 direction, float duration);
 
 	//Makes Player equip item
 	void EquipItem ();
