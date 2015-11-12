@@ -90,7 +90,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	public void AttackMelee(){
-		if (pause == false) {
+		if (pause == false && !isDead) {
 			comboCount++;
 			if (comboCount >= 2 && animator.GetCurrentAnimatorStateInfo (0).IsName ("PlayerAttacking3")) {
 				comboCount = 2;
@@ -126,6 +126,10 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 
 	public void CastRangedAttack (Vector2 direction, float duration) {
+
+		if (isDead) {
+			return;
+		}
 
 		animator.SetFloat("Casting", duration);
 		//Vira o player para o sentido em que está mirando
@@ -266,6 +270,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
 		deathAnimation.transform.localScale = gameObject.transform.localScale;
+		transform.SetParent(null);
 		gameObject.SetActive(false);
 	}
 
