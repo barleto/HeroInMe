@@ -11,19 +11,25 @@ public class Player : MonoBehaviour, IPlayerController {
 	public GameObject projectile;
 	public GameObject meleeWeapon;
 	public GameObject castingHands;
+	public GameObject hpUI;
+	public GameObject deathAnimationBody;
 
 	private Rigidbody2D myBody;
 	private Animator animator;
 	private CircleCollider2D sphereCollider;
+	private HPController hpController;
 	private bool pause = false;
 	private bool facingRight = true;
 	private bool isWalking = false;
+	private bool isCastingRangedAttack = false;
 	private bool grounded = true;
+	private bool isDead = false;
 	private int comboCount = -1;
 	private float comboWindow = 0.5f;
 	private float comboTimer;
 	private float currentSpeed;
 	private float walkingTimer;
+	private GameObject deathAnimation;
 
 	void Awake () {
 
@@ -33,6 +39,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		animator.SetBool ("Grounded", true);
 		currentSpeed = speed;
 		walkingTimer = walkingDuration;
+		hpController = hpUI.GetComponent<HPController>();
 	}
 
 	void FixedUpdate(){
@@ -158,8 +165,9 @@ public class Player : MonoBehaviour, IPlayerController {
 
 		if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
-		} else if (col.gameObject.CompareTag("DeathTrigger")) {
-			transform.position = new Vector3 (0, 2, 0);
+		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
 		} else if(col.gameObject.CompareTag("Key")){
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
@@ -171,8 +179,9 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetBool ("Grounded", grounded);
 		} else if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
-		} else if (col.gameObject.CompareTag("DeathTrigger")) {
-			transform.position = new Vector3 (0, 2, 0);
+		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
 		} else if(col.gameObject.CompareTag("Key")){
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
@@ -226,5 +235,46 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetBool("Combo1", false);
 			animator.SetBool("Combo2", false);
 		}
+	}
+
+	private void TakeDamage(int damage) {
+		hp -= damage;
+
+		hpController.UpdateHP(hp);
+
+		if(hp <= 0) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		}
+	}
+
+	//Função teste para testar o recebimento teste de dano testável
+	public void takeDamageTest() {
+		hp -= 1;
+		
+		hpController.UpdateHP(hp);
+		
+		if(hp <= 0 && !isDead) {
+
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		}
+	}
+
+	private void DeathAnimation() {
+		isDead = true;
+
+		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
+		deathAnimation.transform.localScale = gameObject.transform.localScale;
+		gameObject.SetActive(false);
+	}
+
+	private void Resurrect () {
+		isDead = false;
+		Destroy(deathAnimation);
+		gameObject.SetActive(true);
+		transform.position = new Vector3 (0, 2, 0);
+		hp = 3;
+		hpController.UpdateHP(hp);
 	}
 }
