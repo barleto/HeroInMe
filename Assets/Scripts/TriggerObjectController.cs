@@ -4,11 +4,9 @@ using System.Collections;
 public class TriggerObjectController : MonoBehaviour {
 
 	public GameObject target;
-	private SpriteRenderer sr;
 
 	// Use this for initialization
 	void Start () {
-		sr = gameObject.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -18,11 +16,11 @@ public class TriggerObjectController : MonoBehaviour {
 
 	//Função chamada quando o trigger é ativado
 	public void Action () {
-		target.GetComponent<IPlayerController>().EquipItem(sr.sprite);
-		Destroy();
+		target.GetComponent<IPlayerController>().EquipItem();
+		Destroy (this.gameObject);
 	}
 
-	void Destroy () {
-		gameObject.SetActive(false);
-	}
+//	void Destroy () {
+//		gameObject.SetActive(false);
+//	}
 }

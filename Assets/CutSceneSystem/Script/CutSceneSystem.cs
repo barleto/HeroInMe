@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class CutSceneSystem : MonoBehaviour {
 	
 	enum NodeType {Animation, Dialogue};
+	public bool startPlaying;
 	public Canvas canvas;
 	public Image talkImage;
 	public Image chatBox;
@@ -26,7 +27,10 @@ public class CutSceneSystem : MonoBehaviour {
 	void Start () {
 		toggleUIVisibility (false);
 		textBox.text = "";
-		playScene (currentCutScene);//TODO remove this
+		if(startPlaying){
+			playScene (currentCutScene);
+		}
+
 	}
 	
 	// Update is called once per frame

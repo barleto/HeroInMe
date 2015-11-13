@@ -4,79 +4,162 @@ using System.Collections;
 public class Player : MonoBehaviour, IPlayerController {
 	
 	public float speed;
+	public float shotSpeed;
+	public float walkingDuration;
+	public int hp = 3;
 	public GameObject Weapon;
+	public GameObject projectile;
+	public GameObject meleeWeapon;
+	public GameObject castingHands;
+	public GameObject hpUI;
+	public GameObject deathAnimationBody;
 
-	private float currentSpeed;
-	private float walkingTimer = 2;
 	private Rigidbody2D myBody;
 	private Animator animator;
+	private CircleCollider2D sphereCollider;
+	private HPController hpController;
+	private bool pause = false;
 	private bool facingRight = true;
-	private bool inAir = false;
 	private bool isWalking = false;
-	private bool isRunning = false;
-	private SpriteRenderer weaponSpriteRenderer;
-	private BoxCollider2D weaponBoxCollider2D;
+	private bool isCastingRangedAttack = false;
+	private bool grounded = true;
+	private bool isDead = false;
+	private bool inCombo = false;
+	private int comboCount = -1;
+	private float comboWindow = 0.5f;
+	private float comboTimer;
+	private float currentSpeed;
+	private float walkingTimer;
+	private GameObject deathAnimation;
 
 	void Awake () {
+
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		weaponSpriteRenderer = Weapon.GetComponent<SpriteRenderer>();
-		weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
+		sphereCollider = GetComponent<CircleCollider2D>();
+		animator.SetBool ("Grounded", true);
 		currentSpeed = speed;
+		walkingTimer = walkingDuration;
+		hpController = hpUI.GetComponent<HPController>();
 	}
 
 	void FixedUpdate(){
+		//Timer until player starts running
 		if (isWalking) {
 			walkingTimer -= Time.deltaTime;
-			if(walkingTimer <= 0){
-				walkingTimer = 0;
-				isRunning = true;
+			if(walkingTimer <= 0 && currentSpeed < 7 ){
+				walkingTimer = walkingDuration;
+				currentSpeed++;
+			}
+		}
+		//Timer for players combo
+		if (comboCount >= 0) {
+			comboTimer -= Time.deltaTime;
+			if (comboTimer <= 0) {
+				comboCount = -1;
+				comboTimer = comboWindow;
+				animator.SetBool ("Combo1", false);
+				animator.SetBool ("Combo2", false);
+				inCombo = false;
 			}
 		}
 	}
 
 	// Will move the player given a movement vector
 	public void MovePlayer(Vector2 movement){
-		movement.Normalize (); //normalizes the vector
-		//Horizontal movement or stop walking movement
-		if (Mathf.Abs (movement.x) > movement.y || (movement.x == 0 && movement.y == 0)) {
-			// Changes through player animations
-			if (movement.x == 0) {
-				if(isWalking){
-					animator.SetBool ("Walking", false);
-					isWalking = false;
-				} else if(isRunning){
-					animator.SetBool("Running", false);
-					isRunning = false;
-					currentSpeed = speed;
-					walkingTimer = 2;
-				}
-			} else if(!isRunning){
-				animator.SetBool ("Walking", true);
-				isWalking = true;
-				
-				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
-					Flip ();
-				}
-			} else {
-				animator.SetBool("Running", true);
-				currentSpeed = speed + 2;
-				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
-					Flip ();
-				}
-			}
-			// Sets player movement
-			myBody.velocity = new Vector2 (currentSpeed * movement.x, myBody.velocity.y);
 
-		} else if(inAir == false){ //Vertical movement
-			myBody.velocity = new Vector2(myBody.velocity.x, 3*speed);
-			animator.SetTrigger("Jumping");
-			inAir = true;
+		if (pause == false) {
+			//Horizontal movement
+			if (movement.y == 0) {
+				// Sets player movement
+				isWalking = true;
+				myBody.velocity = new Vector2 (currentSpeed * movement.x, myBody.velocity.y);
+				animator.SetFloat ("Speed", Mathf.Abs (movement.x) * currentSpeed);
+
+				if ((facingRight && movement.x < 0) || (!facingRight && movement.x > 0)) {
+					Flip ();
+				} else if (movement.x == 0) { // Player stoped
+					isWalking = false;
+					walkingTimer = walkingDuration;
+					currentSpeed = speed;
+				}
+
+			} else if (grounded == true) { //Vertical movement	
+				animator.SetTrigger ("Jump");
+				myBody.velocity = new Vector2 (myBody.velocity.x, 3 * speed);
+			}
 		}
 	}
 	
-	public void Attack(){
-		animator.SetTrigger ("Attacking");
+	public void AttackMelee(){
+		if (pause == false && !isDead) {
+			comboCount++;
+			if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerAttacking1")){
+				comboCount = 1;
+			} else if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerAttacking2")){
+				comboCount = 2;
+			}
+			if (comboCount > 2 && inCombo) {
+
+				comboCount = 3;
+			} else if (comboCount > 2) {
+				comboCount = 0;
+				inCombo = false;
+			}
+
+			if (comboCount == 0) {
+				animator.SetTrigger ("Attack");
+			} else if (comboCount == 1) {
+				comboTimer = animator.GetCurrentAnimatorStateInfo (1).length;
+				animator.SetBool ("Combo1", true);
+				inCombo = true;
+			} else if (comboCount == 2) {
+				comboTimer = animator.GetCurrentAnimatorStateInfo (1).length;
+				animator.SetBool ("Combo2", true);
+				inCombo = true;
+			}
+		}
+	}
+
+	public 	void AttackRanged(Vector2 direction){
+
+		direction.Normalize ();
+		GameObject clone = (GameObject) Instantiate(projectile, castingHands.transform.position, castingHands.transform.rotation);
+		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
+
+		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
+		animator.SetTrigger("Shot");
+		animator.SetFloat("Casting", 0f);
+	}
+
+	public void CastRangedAttack (Vector2 direction, float duration) {
+
+		if (isDead) {
+			return;
+		}
+
+		animator.SetFloat("Casting", duration);
+//		SpriteRenderer sword = Weapon.GetComponentInChildren<SpriteRenderer>();
+//		if(sword != null){
+//			Debug.Log("peguei");
+//		}
+		//Vira o player para o sentido em que está mirando
+		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
+			Flip ();
+		}
+
+		//Para o player caso esteja em movimento
+		if ( isWalking) {
+			MovePlayer(new Vector2(0, 0));
+		}
+
+		if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerReadyToShoot")){
+			float angle = Mathf.Atan2(direction.y, direction.x);
+			float sin = Mathf.Sin(angle);
+			animator.SetFloat("CastAngle", sin);
+		}
 	}
 	
 	// Flips player sprites scale
@@ -88,33 +171,40 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
+
 		if (col.gameObject.CompareTag("PickUp")) {
 			col.gameObject.GetComponent<TriggerObjectController>().Action();
-		} else if (col.gameObject.CompareTag("DeathTrigger")) {
-			transform.position = new Vector3 (0, 2, 0);
+		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
 		} else if(col.gameObject.CompareTag("Key")){
-			Debug.Log("to aqui");
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
 	}
 
 	void OnTriggerStay2D(Collider2D col){
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag ("Platform")) {
-			if (inAir) {
-				animator.SetTrigger ("Landing");
-			}
-			inAir = false;
-			animator.SetBool ("Falling", false);
-		}
+			grounded = true;
+			animator.SetBool ("Grounded", grounded);
+		} else if (col.gameObject.CompareTag("PickUp")) {
+			col.gameObject.GetComponent<TriggerObjectController>().Action();
+		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		} else if(col.gameObject.CompareTag("Key")){
+			col.gameObject.GetComponent<CoinController>().Action();
+		} 
 	}
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag("Platform")) {
-			inAir = true;
-			animator.SetBool("Falling", true);
+			if(!col.IsTouching(sphereCollider)){
+				grounded = false;
+				animator.SetBool("Grounded", grounded);
+			}
 		}
 	}
-	
+
 	void OnCollisionEnter2D(Collision2D col) {
 		if(col.transform.CompareTag("Platform")) {
 			transform.parent = col.transform;
@@ -127,11 +217,74 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 	}
 	
-	public void EquipItem (Sprite sprite) {
+	public void EquipItem () {
+
+		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
+		sword.transform.parent = Weapon.transform;
+
+		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
+		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
+		weaponBoxCollider2D.size = swordCollider2D.size;
+		weaponBoxCollider2D.offset = swordCollider2D.offset;
+		swordCollider2D.enabled = false;
+
+	}
+
+	public void TakeDamage(){
+		hp--;
+		if(hp == 0){
+			//Kill Player
+		}
+	}
+
+	public void Pause(){
+		pause = !pause;
+		if(pause == true){
+			animator.SetFloat("Speed", 0f);
+			animator.SetBool("Combo1", false);
+			animator.SetBool("Combo2", false);
+		}
+	}
+
+	private void TakeDamage(int damage) {
+		hp -= damage;
+
+		hpController.UpdateHP(hp);
+
+		if(hp <= 0) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		}
+	}
+
+	//Função teste para testar o recebimento teste de dano testável
+	public void takeDamageTest() {
+		hp -= 1;
 		
-		weaponSpriteRenderer.sprite = sprite;
-		weaponBoxCollider2D.size = weaponSpriteRenderer.bounds.size;
-		weaponBoxCollider2D.offset = weaponSpriteRenderer.bounds.center - weaponBoxCollider2D.bounds.center;
-		weaponBoxCollider2D.enabled = false;
+		hpController.UpdateHP(hp);
+		
+		if(hp <= 0 && !isDead) {
+
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		}
+	}
+
+	private void DeathAnimation() {
+		isDead = true;
+
+		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
+		deathAnimation.transform.localScale = gameObject.transform.localScale;
+		transform.SetParent(null);
+		gameObject.SetActive(false);
+	}
+
+	private void Resurrect () {
+		isDead = false;
+		Destroy(deathAnimation);
+		gameObject.SetActive(true);
+		transform.position = new Vector3 (0, 3, 0);
+		hp = 3;
+		hpController.UpdateHP(hp);
 	}
 }
