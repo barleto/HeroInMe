@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [System.Serializable]
 public class CutSceneNodes : ScriptableObject{
@@ -8,11 +10,13 @@ public class CutSceneNodes : ScriptableObject{
 	public bool hasExecutionEnded = false;
 	public CutScene cutScene;
 
+	#if UNITY_EDITOR
 	/*In this function, you define what will appear in the UI of the CutScene.
 	Just populate with GUILayout funcitons*/
 	virtual public void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 
 	}
+#endif
 
 	//executed once to initialize the node
 	virtual public void start(){

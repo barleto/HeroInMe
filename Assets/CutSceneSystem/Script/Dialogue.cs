@@ -2,8 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 [System.Serializable]
 public class Dialogue : CutSceneNodes {
 	public Sprite characterImage;
@@ -14,6 +15,7 @@ public class Dialogue : CutSceneNodes {
 	private Text textBox;
 	private bool hasFinishedWritingText = false;
 
+	#if UNITY_EDITOR
 	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 		Dialogue node = this;
 		GUILayout.Label("<<Dialogue>>");
@@ -29,14 +31,15 @@ public class Dialogue : CutSceneNodes {
 		node.text = EditorGUILayout.TextArea(((Dialogue)node).text,GUILayout.Width(300),GUILayout.Height(60));
 		GUILayout.EndHorizontal();
 	}
+#endif
 
 	public override void start(){
 		base.start ();
-		cutScene.css.gameObject.SetActive (true);
 		cutScene.css.talkImage.sprite = characterImage;
 		textBox = cutScene.css.textBox;
 		textBox.text = "";
 		hasFinishedWritingText = false;
+		cutScene.css.toggleUIVisibility (true);
 		cutScene.StartCoroutine (showText ());
 	}
 	

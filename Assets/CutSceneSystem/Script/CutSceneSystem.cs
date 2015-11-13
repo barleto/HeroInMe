@@ -54,7 +54,6 @@ public class CutSceneSystem : MonoBehaviour {
 		if(currentCutScene.pauseGame){
 			onCutScenePause.Invoke ();
 		}
-		toggleUIVisibility (true);
 		currentIndexNode = 0;
 		continuePlaying = true;
 		StartCoroutine ("jumpToNodeAndPLay");

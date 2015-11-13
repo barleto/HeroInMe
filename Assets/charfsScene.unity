@@ -354,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf2f5ae3f6e0447cb735a86d02dfda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPlaying: 0
   canvas: {fileID: 1155766210}
   talkImage: {fileID: 1329258190}
   chatBox: {fileID: 1536540986}

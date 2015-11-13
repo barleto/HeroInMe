@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
 
 
@@ -11,7 +12,7 @@ public class CutSceneEditor : Editor {
 	private int index1,index2;
 	private bool grouping = false;
 	
-	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode};
+	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode,SetActiveNode};
 	private TypesOfNode type = TypesOfNode.Animation;
 	
 	public override void OnInspectorGUI(){
@@ -102,6 +103,11 @@ public class CutSceneEditor : Editor {
 				ExecuteFunctionNode newExecuteFunctionNode = new ExecuteFunctionNode();
 				newExecuteFunctionNode.cutScene = cutScene;
 				cutScene.nodeList.Add(newExecuteFunctionNode);
+				break;
+			case TypesOfNode.SetActiveNode:
+				SetActiveNode newSetActiveNode = new SetActiveNode();
+				newSetActiveNode.cutScene = cutScene;
+				cutScene.nodeList.Add(newSetActiveNode);
 				break;
 			}
 		}
@@ -421,3 +427,4 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 */
+#endif

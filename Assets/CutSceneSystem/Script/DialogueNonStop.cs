@@ -2,7 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [System.Serializable]
 public class DialogueNonStop : CutSceneNodes {
@@ -16,6 +18,7 @@ public class DialogueNonStop : CutSceneNodes {
 	private bool hasFinishedWritingText = false;
 	private float countTime = 0;
 
+	#if UNITY_EDITOR
 	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
 		DialogueNonStop node = this;
 		GUILayout.Label("<<Dialogue>>");
@@ -38,6 +41,7 @@ public class DialogueNonStop : CutSceneNodes {
 		node.text = EditorGUILayout.TextArea(node.text,GUILayout.Width(300),GUILayout.Height(60));
 		GUILayout.EndHorizontal();
 	}
+#endif
 
 	public override void start(){
 		canvas.gameObject.SetActive (true);

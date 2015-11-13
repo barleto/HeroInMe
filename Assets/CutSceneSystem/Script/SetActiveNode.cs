@@ -7,22 +7,24 @@ using UnityEditor;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class ExecuteFunctionNode : CutSceneNodes {
+public class SetActiveNode : CutSceneNodes {
 	[SerializeField]
-	public MonoBehaviour eventCallee = null;
-	public string functionName;
+	public GameObject gameObj;
+	public bool active = false;
 
 	#if UNITY_EDITOR
 	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
-		ExecuteFunctionNode node = this;
-		GUILayout.Label("<<Execute Function>>");
-		eventCallee = (MonoBehaviour)EditorGUILayout.ObjectField ("Object: ",eventCallee, typeof(MonoBehaviour),true);
-		functionName = EditorGUILayout.TextField ("FuncitonName: ",functionName);
+		SetActiveNode node = this;
+		GUILayout.Label("<<SetActiveNode>>");
+		gameObj = (GameObject)EditorGUILayout.ObjectField ("Object: ",gameObj, typeof(GameObject),true);
+		active = EditorGUILayout.Toggle ("Active: ", active);
+
+
 	}
 #endif
 
 	public override void start(){
-		this.eventCallee.Invoke (functionName,0);
+		gameObj.SetActive (active);
 		hasExecutionEnded = true;
 	}
 	
