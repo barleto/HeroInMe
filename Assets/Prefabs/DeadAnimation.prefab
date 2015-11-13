@@ -119,7 +119,7 @@ GameObject:
   - 4: {fileID: 401114}
   - 212: {fileID: 21294658}
   - 50: {fileID: 5086032}
-  - 61: {fileID: 6150602}
+  - 58: {fileID: 5897204}
   m_Layer: 13
   m_Name: Head
   m_TagString: Untagged
@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .209999993, y: -1.64999998, z: 0}
+  m_LocalPosition: {x: .209999993, y: -3.58999991, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 411864}
@@ -318,7 +318,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170494}
-  m_Mass: .5
+  m_Mass: .899999976
   m_LinearDrag: 0
   m_AngularDrag: .0399999991
   m_GravityScale: 1
@@ -359,6 +359,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &5897204
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170494}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.42999995
 --- !u!58 &5898460
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -371,7 +384,7 @@ CircleCollider2D:
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.73000002
+  m_Radius: 6.65999985
 --- !u!61 &6121482
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -385,19 +398,6 @@ BoxCollider2D:
   m_Offset: {x: -1.1920929e-07, y: 4.76837158e-07}
   serializedVersion: 2
   m_Size: {x: 1.25000012, y: 1.03000009}
---- !u!61 &6150602
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170494}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 2.52999997, y: 2.8599999}
 --- !u!61 &6165772
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -462,7 +462,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115f392bca31446cfa836a37e33f1d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionTime: .200000003
+  explosionTime: .100000001
+  maxRotation: 500
+  headRB2D: {fileID: 5086032}
+  frontHandRB2D: {fileID: 5026910}
+  backHandRB2D: {fileID: 5094194}
+  frontFootRB2D: {fileID: 5088958}
+  backFootRB2D: {fileID: 5069976}
 --- !u!124 &12492642
 Behaviour:
   m_ObjectHideFlags: 1
@@ -492,7 +498,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: -3
   m_Sprite: {fileID: 21300002, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -518,7 +524,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300004, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -544,7 +550,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300006, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -570,7 +576,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300004, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -596,7 +602,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -611,7 +617,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 8192
-  m_ForceMagnitude: 50
+  m_ForceMagnitude: 140
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_Drag: 0

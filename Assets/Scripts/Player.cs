@@ -92,7 +92,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	public void AttackMelee(){
-		if (pause == false) {
+		if (pause == false && !isDead) {
 			comboCount++;
 			if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerAttacking1")){
 				comboCount = 1;
@@ -136,7 +136,15 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public void CastRangedAttack (Vector2 direction, float duration) {
 
+		if (isDead) {
+			return;
+		}
+
 		animator.SetFloat("Casting", duration);
+//		SpriteRenderer sword = Weapon.GetComponentInChildren<SpriteRenderer>();
+//		if(sword != null){
+//			Debug.Log("peguei");
+//		}
 		//Vira o player para o sentido em que está mirando
 		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
 			Flip ();
@@ -267,6 +275,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
 		deathAnimation.transform.localScale = gameObject.transform.localScale;
+		transform.SetParent(null);
 		gameObject.SetActive(false);
 	}
 
@@ -274,7 +283,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		isDead = false;
 		Destroy(deathAnimation);
 		gameObject.SetActive(true);
-		transform.position = new Vector3 (0, 2, 0);
+		transform.position = new Vector3 (0, 3, 0);
 		hp = 3;
 		hpController.UpdateHP(hp);
 	}
