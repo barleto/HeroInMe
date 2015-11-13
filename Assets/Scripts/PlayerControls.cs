@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerControls : MonoBehaviour {
 
 	//REMINDER: Se alterar castingDuration, alterar a transição no animator
-	public float castingDuration = 1f;
+	public float castingDuration = 1.5f;
 	public float longPressDuration = 0.4f;
 
 	protected IPlayerController player = null;
@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour {
 	private bool isMoving = false;
 	private float touchTime;
 	private float castingTime = 0;
+	private int castingTouch = 2;
 	private float touchingBounds;
 
 	//move o player para a direita
@@ -56,12 +57,12 @@ public class PlayerControls : MonoBehaviour {
 			count = 2;
 		}
 		if (longPressDetected && !isMoving){
-			count = 1;
+			count = castingTouch+1;
 		}
 
 		for (int i = 0; i < count; i++) {
 
-			var touch = Input.GetTouch(i);
+			Touch touch = Input.GetTouch(i);
 
 			// Handle finger movements based on touch phase.
 			switch (touch.phase) {
@@ -69,15 +70,14 @@ public class PlayerControls : MonoBehaviour {
 				// Record initial touch position.
 			case TouchPhase.Began:
 				startPos = touch.position;
-				if(touch.position.x > touchingBounds && !longPressDetected){
-					touchTime = Time.time;
-				}
+				touchTime = Time.time;
 				break;
 
 				//Detecta long press, onde o tempo necessário é decidido no inspetor segundo
 			case TouchPhase.Stationary:
 				if(!longPressDetected && Time.time - touchTime > longPressDuration && touch.position.x > touchingBounds){
 					longPressDetected = true;
+					castingTouch = i;
 					castingTime = Time.time - touchTime;
 				} else if(longPressDetected && touch.position.x > touchingBounds){
 					castingTime = Time.time - touchTime;
@@ -136,7 +136,10 @@ public class PlayerControls : MonoBehaviour {
 						direction = new Vector2(1, 0);
 					}
 					if(Time.time - touchTime > castingDuration){
+						Debug.Log("lala");
 						player.AttackRanged(direction);
+					} else {
+						player.CastRangedAttack(direction, 0f);
 					}
 					direction = new Vector2 (0, 0);
 					longPressDetected = false;
@@ -149,7 +152,7 @@ public class PlayerControls : MonoBehaviour {
 
 			//Reconhece um long press
 			} else if (longPressDetected){
-				//Manda a direção que o player está mirando
+				//Manda a direção que o player está mirando e o tempo que ficou pressionando o botao
 				player.CastRangedAttack(direction, castingTime);
 
 			//Pulo

@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	private bool isCastingRangedAttack = false;
 	private bool grounded = true;
 	private bool isDead = false;
+	private bool inCombo = false;
 	private int comboCount = -1;
 	private float comboWindow = 0.5f;
 	private float comboTimer;
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour, IPlayerController {
 				comboTimer = comboWindow;
 				animator.SetBool ("Combo1", false);
 				animator.SetBool ("Combo2", false);
+				inCombo = false;
 			}
 		}
 	}
@@ -92,12 +94,17 @@ public class Player : MonoBehaviour, IPlayerController {
 	public void AttackMelee(){
 		if (pause == false) {
 			comboCount++;
-			if (comboCount >= 2 && animator.GetCurrentAnimatorStateInfo (0).IsName ("PlayerAttacking3")) {
+			if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerAttacking1")){
+				comboCount = 1;
+			} else if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerAttacking2")){
 				comboCount = 2;
-				animator.SetBool ("Combo1", false);
-				animator.SetBool ("Combo2", false);
+			}
+			if (comboCount > 2 && inCombo) {
+
+				comboCount = 3;
 			} else if (comboCount > 2) {
 				comboCount = 0;
+				inCombo = false;
 			}
 
 			if (comboCount == 0) {
@@ -105,9 +112,11 @@ public class Player : MonoBehaviour, IPlayerController {
 			} else if (comboCount == 1) {
 				comboTimer = animator.GetCurrentAnimatorStateInfo (1).length;
 				animator.SetBool ("Combo1", true);
+				inCombo = true;
 			} else if (comboCount == 2) {
-				comboTimer += animator.GetCurrentAnimatorStateInfo (1).length;
+				comboTimer = animator.GetCurrentAnimatorStateInfo (1).length;
 				animator.SetBool ("Combo2", true);
+				inCombo = true;
 			}
 		}
 	}
@@ -135,18 +144,10 @@ public class Player : MonoBehaviour, IPlayerController {
 
 		//Para o player caso esteja em movimento
 		if ( isWalking) {
-			//currentSpeed = 0;
 			MovePlayer(new Vector2(0, 0));
 		}
 
 		if(animator.GetCurrentAnimatorStateInfo(1).IsName("PlayerReadyToShoot")){
-			//metodo sem blend tree
-//			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-//
-//			transform.RotateAround(transform.position, Vector3.forward, angle);
-//			castingHands.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-			//Metodo com blend tree
 			float angle = Mathf.Atan2(direction.y, direction.x);
 			float sin = Mathf.Sin(angle);
 			animator.SetFloat("CastAngle", sin);
