@@ -3524,6 +3524,7 @@ GameObject:
   - 4: {fileID: 995168039}
   - 114: {fileID: 995168040}
   - 61: {fileID: 995168041}
+  - 251: {fileID: 995168042}
   m_Layer: 12
   m_Name: Plataforms1
   m_TagString: Platform
@@ -3571,10 +3572,26 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_Offset: {x: .0938224792, y: 0}
   serializedVersion: 2
   m_Size: {x: 4.84687042, y: 1}
+--- !u!251 &995168042
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 995168038}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseOneWay: 1
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1005587306
 GameObject:
   m_ObjectHideFlags: 0

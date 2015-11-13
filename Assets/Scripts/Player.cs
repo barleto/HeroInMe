@@ -278,7 +278,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		isDead = false;
 		Destroy(deathAnimation);
 		gameObject.SetActive(true);
-		transform.position = new Vector3 (0, 2, 0);
+		transform.position = new Vector3 (0, 3, 0);
 		hp = 3;
 		hpController.UpdateHP(hp);
 	}
