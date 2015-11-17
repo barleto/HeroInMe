@@ -505,22 +505,6 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7287ea0542b8c8f4c8a954b6a06888e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &89016181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasExecutionEnded: 0
-  cutScene: {fileID: 796812075}
-  characterImage: {fileID: 21300000, guid: bd1989b4e42a0454097f657dfb368bd8, type: 3}
-  text: OLLLAAARRRRRRR HUMANO!!!
-  letterPause: .100000001
 --- !u!1 &102922543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,8 +3237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeList:
-  - {fileID: 89016181}
   - {fileID: 1478955324}
+  - {fileID: 2146379311}
+  - {fileID: 830935519}
   pauseGame: 1
   css: {fileID: 1496485379}
 --- !u!4 &796812076
@@ -3324,6 +3309,21 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e7d3a1e0e2fac4bd48b6734c2daf4fe1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &830935519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665eef9f15d494ab49ecc991415258e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasExecutionEnded: 0
+  cutScene: {fileID: 796812075}
+  gameObj: {fileID: 1238215381}
+  active: 1
 --- !u!1 &870032637
 GameObject:
   m_ObjectHideFlags: 0
@@ -5487,7 +5487,7 @@ MonoBehaviour:
   hasExecutionEnded: 0
   cutScene: {fileID: 796812075}
   gameObj: {fileID: 1238215381}
-  active: 1
+  active: 0
 --- !u!1 &1496485378
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,18 +5524,7 @@ MonoBehaviour:
   currentCutScene: {fileID: 796812075}
   onCutScenePause:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1238215381}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!4 &1496485380
@@ -7675,3 +7664,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2146379311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc65895a13bf4c8ab75b48d6a6e83ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasExecutionEnded: 0
+  cutScene: {fileID: 796812075}
+  characterImage: {fileID: 21300000, guid: bd1989b4e42a0454097f657dfb368bd8, type: 3}
+  text: OOLLAAARRRRR HUMANO!!!
+  letterPause: .057

@@ -27,6 +27,6 @@ public class AnimationNode : CutSceneNodes {
 	}
 	
 	public override  void end(){
-
+		animation.Stop ();
 	}
 }

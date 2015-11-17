@@ -14,7 +14,8 @@ public class CutSceneSystem : MonoBehaviour {
 	public Text textBox;
 	public GameObject mainCharacaterScript;
 	public CutScene currentCutScene;
-	public UnityEvent onCutScenePause;
+	public UnityEvent onCutSceneStart;
+	public UnityEvent onCutSceneEnd;
 	
 	private static CutSceneSystem singletonInstanece = null;
 	
@@ -47,12 +48,13 @@ public class CutSceneSystem : MonoBehaviour {
 	}
 	
 	public void playScene(CutScene newScene){
+		endCurrentCutscene ();
 		if(newScene.nodeList.Count < 1){
 			return;
 		}
 		currentCutScene = newScene;
 		if(currentCutScene.pauseGame){
-			onCutScenePause.Invoke ();
+			onCutSceneStart.Invoke ();
 		}
 		currentIndexNode = 0;
 		continuePlaying = true;
@@ -72,9 +74,11 @@ public class CutSceneSystem : MonoBehaviour {
 		if (index >= currentCutScene.nodeList.Count || !continuePlaying) {
 			foreach (CutSceneNodes CSN in currentCutScene.nodeList) {
 				CSN.hasExecutionEnded = false;
+				CSN.end();
 			}
 			currentCutScene = null;
 			toggleUIVisibility (false);
+			onCutSceneEnd.Invoke();
 			yield return null;
 		} else {
 			currentNode = currentCutScene.nodeList[index];
@@ -105,6 +109,16 @@ public class CutSceneSystem : MonoBehaviour {
 	public void debugCall(){
 		for(int i = 0 ; i< 10000;i++){
 			Debug.Log ("Funfou");
+		}
+	}
+
+	private void endCurrentCutscene(){
+		if(currentCutScene == null){
+			return;
+		}
+		foreach(CutSceneNodes csn in currentCutScene.nodeList){
+			csn.hasExecutionEnded = false;
+			csn.end();
 		}
 	}
 }

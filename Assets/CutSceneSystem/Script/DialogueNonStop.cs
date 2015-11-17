@@ -17,6 +17,7 @@ public class DialogueNonStop : CutSceneNodes {
 	
 	private bool hasFinishedWritingText = false;
 	private float countTime = 0;
+	private Coroutine textRoutine;
 
 	#if UNITY_EDITOR
 	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
@@ -46,7 +47,7 @@ public class DialogueNonStop : CutSceneNodes {
 	public override void start(){
 		canvas.gameObject.SetActive (true);
 		chatBox.text = "";
-		cutScene.StartCoroutine (showText ());
+		textRoutine = cutScene.StartCoroutine (showText ());
 		countTime = 0;
 	}
 	
@@ -59,6 +60,7 @@ public class DialogueNonStop : CutSceneNodes {
 	
 	public override  void end(){
 		canvas.gameObject.SetActive (false);
+		cutScene.StopCoroutine (textRoutine);
 	}
 
 	public override void tapAtScreen ()
