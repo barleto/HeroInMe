@@ -136,7 +136,6 @@ public class PlayerControls : MonoBehaviour {
 						direction = new Vector2(1, 0);
 					}
 					if(Time.time - touchTime > castingDuration){
-						Debug.Log("lala");
 						player.AttackRanged(direction);
 					} else {
 						player.CastRangedAttack(direction, 0f);
@@ -169,5 +168,17 @@ public class PlayerControls : MonoBehaviour {
 				player.MovePlayer(movement);
 			}
 		}
+	}
+
+	public void ResetControlls(){
+		attack = false;
+		swipeUpDetected = false;
+		longPressDetected = false;
+		isMoving = false;
+		movement = Vector2.zero;
+		direction = Vector2.zero;
+		castingTime = 0f;
+		touchTime = 0f;
+		castingTouch = 2;
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class ProjectileScript : MonoBehaviour {
 
 	public float lifeSpan;
+	public int damage;
 
 	void Awake () {
 	
@@ -22,7 +23,7 @@ public class ProjectileScript : MonoBehaviour {
 		if (col.gameObject.CompareTag("Enemy")) {
 			Destroy (col.gameObject); //TODO: Aplicar dano
 		} else if(col.gameObject.CompareTag("Destructable")){
-			col.gameObject.GetComponent<DestructableController>().TakeDamage();
+			col.gameObject.GetComponent<DestructableController>().TakeDamage(damage);
 		}
 
 		//Destroi o projetil em qualquer colisão exceto com o jogador

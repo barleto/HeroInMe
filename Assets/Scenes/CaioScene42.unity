@@ -362,7 +362,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 50994687}
   - 212: {fileID: 50994686}
-  - 114: {fileID: 50994685}
   - 61: {fileID: 50994684}
   m_Layer: 0
   m_Name: Item
@@ -385,19 +384,6 @@ BoxCollider2D:
   m_Offset: {x: -.0228469968, y: .434091806}
   serializedVersion: 2
   m_Size: {x: .670000017, y: 2.27999997}
---- !u!114 &50994685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11470032, guid: 0af07475508094c7098045ac809c9e1c,
-    type: 2}
-  m_PrefabInternal: {fileID: 287133512}
-  m_GameObject: {fileID: 50994683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abad2d0059db404898b1987ad454918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1565221714}
 --- !u!212 &50994686
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1481,7 +1467,8 @@ Prefab:
       propertyPath: m_Name
       value: Item
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 0af07475508094c7098045ac809c9e1c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &376994907
@@ -4627,6 +4614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3785ec60d7373457dbd8f057da569341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &1317563094
 GameObject:
   m_ObjectHideFlags: 0

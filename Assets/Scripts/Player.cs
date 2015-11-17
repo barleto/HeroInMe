@@ -141,9 +141,8 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 
 		animator.SetFloat("Casting", duration);
-//		SpriteRenderer sword = Weapon.GetComponentInChildren<SpriteRenderer>();
-//		if(sword != null){
-//			Debug.Log("peguei");
+//		if(Weapon.transform.childCount >0){
+//			Debug.Log("achei");
 //		}
 		//Vira o player para o sentido em que está mirando
 		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
@@ -173,7 +172,8 @@ public class Player : MonoBehaviour, IPlayerController {
 	void OnTriggerEnter2D(Collider2D col){
 
 		if (col.gameObject.CompareTag("PickUp")) {
-			col.gameObject.GetComponent<TriggerObjectController>().Action();
+			Destroy(col.gameObject);
+			this.EquipItem();
 		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
 			DeathAnimation();
 			Invoke ("Resurrect", 3);
@@ -186,8 +186,8 @@ public class Player : MonoBehaviour, IPlayerController {
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag ("Platform")) {
 			grounded = true;
 			animator.SetBool ("Grounded", grounded);
-		} else if (col.gameObject.CompareTag("PickUp")) {
-			col.gameObject.GetComponent<TriggerObjectController>().Action();
+//		} else if (col.gameObject.CompareTag("PickUp")) {
+//			col.gameObject.GetComponent<TriggerObjectController>().Action();
 		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
 			DeathAnimation();
 			Invoke ("Resurrect", 3);
@@ -218,7 +218,6 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 	
 	public void EquipItem () {
-
 		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
 		sword.transform.parent = Weapon.transform;
 
@@ -226,6 +225,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		BoxCollider2D weaponBoxCollider2D = Weapon.GetComponent<BoxCollider2D>();
 		weaponBoxCollider2D.size = swordCollider2D.size;
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
+		Weapon.GetComponent<SwordScript>().damage = sword.GetComponent<SwordScript>().damage;
 		swordCollider2D.enabled = false;
 
 	}
@@ -240,7 +240,10 @@ public class Player : MonoBehaviour, IPlayerController {
 	public void Pause(){
 		pause = !pause;
 		if(pause == true){
+			//REMINDER: Setar os triggers do animator
 			animator.SetFloat("Speed", 0f);
+			animator.SetFloat("Casting", 0f);
+			animator.SetFloat("CastAngle", 0f);
 			animator.SetBool("Combo1", false);
 			animator.SetBool("Combo2", false);
 		}
@@ -272,6 +275,16 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	private void DeathAnimation() {
 		isDead = true;
+		
+		//REMINDER: Setar os triggers do animator
+		Debug.Log("morri");
+		isCastingRangedAttack = false;
+		animator.SetFloat("Speed", 0f);
+		animator.SetFloat("Casting", 0f);
+		animator.SetFloat("CastAngle", 0f);
+		animator.SetBool("Combo1", false);
+		animator.SetBool("Combo2", false);
+		GetComponent<PlayerControls>().ResetControlls();
 
 		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
 		deathAnimation.transform.localScale = gameObject.transform.localScale;
@@ -286,5 +299,26 @@ public class Player : MonoBehaviour, IPlayerController {
 		transform.position = new Vector3 (0, 3, 0);
 		hp = 3;
 		hpController.UpdateHP(hp);
+		animator.SetTrigger("JustDied");
+		Reset();
+		castingHands.GetComponent<SpriteRenderer>().enabled = false;
+		//TODO: resetar maos
+	}
+
+	private void Reset(){
+		animator.SetFloat("Speed", 0f);
+		animator.SetFloat("Casting", 0f);
+		animator.SetFloat("CastAngle", 0f);
+		animator.SetBool("Combo1", false);
+		animator.SetBool("Combo2", false);
+		pause = false;
+		isWalking = false;
+		isCastingRangedAttack = false;
+		grounded = true;
+		isDead = false;
+		inCombo = false;
+		comboCount = -1;
+		comboWindow = 0.5f;
+
 	}
 }
