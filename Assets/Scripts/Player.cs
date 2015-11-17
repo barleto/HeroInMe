@@ -124,6 +124,13 @@ public class Player : MonoBehaviour, IPlayerController {
 	public 	void AttackRanged(Vector2 direction){
 
 		direction.Normalize ();
+		if(direction.magnitude == 0) {
+			if (facingRight) {
+				direction = new Vector2 (1, 0);
+			} else {
+				direction = new Vector2 (-1, 0);
+			}
+		}
 		GameObject clone = (GameObject) Instantiate(projectile, castingHands.transform.position, castingHands.transform.rotation);
 		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
 

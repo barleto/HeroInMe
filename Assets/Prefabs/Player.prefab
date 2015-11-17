@@ -269,6 +269,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -352,7 +353,7 @@ Animator:
   m_GameObject: {fileID: 136776}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c61db4f43b83e4daaab2bd7e8e5915a7, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -386,7 +387,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5.19999981
+  shotSpeed: 0
+  walkingDuration: 0
+  hp: 3
   Weapon: {fileID: 185336}
+  projectile: {fileID: 0}
+  meleeWeapon: {fileID: 0}
+  castingHands: {fileID: 0}
+  hpUI: {fileID: 0}
+  deathAnimationBody: {fileID: 0}
 --- !u!114 &11474628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -398,6 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2802beeceab849cca6ee95b08d61055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castingDuration: 1.5
+  longPressDuration: .400000006
 --- !u!124 &12452676
 Behaviour:
   m_ObjectHideFlags: 1
