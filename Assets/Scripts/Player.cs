@@ -124,6 +124,13 @@ public class Player : MonoBehaviour, IPlayerController {
 	public 	void AttackRanged(Vector2 direction){
 
 		direction.Normalize ();
+		if(direction.magnitude == 0) {
+			if (facingRight) {
+				direction = new Vector2 (1, 0);
+			} else {
+				direction = new Vector2 (-1, 0);
+			}
+		}
 		GameObject clone = (GameObject) Instantiate(projectile, castingHands.transform.position, castingHands.transform.rotation);
 		Rigidbody2D shotRigidbody = clone.GetComponent<Rigidbody2D>();
 
@@ -289,12 +296,6 @@ public class Player : MonoBehaviour, IPlayerController {
 		
 		//REMINDER: Setar os triggers do animator
 		Debug.Log("morri");
-		isCastingRangedAttack = false;
-		animator.SetFloat("Speed", 0f);
-		animator.SetFloat("Casting", 0f);
-		animator.SetFloat("CastAngle", 0f);
-		animator.SetBool("Combo1", false);
-		animator.SetBool("Combo2", false);	
 		animator.SetTrigger("JustDied");
 		GetComponent<PlayerControls>().ResetControlls();
 
@@ -312,8 +313,6 @@ public class Player : MonoBehaviour, IPlayerController {
 		hp = 3;
 		hpController.UpdateHP(hp);
 		this.Reset();
-		castingHands.GetComponent<SpriteRenderer>().enabled = false;
-		//TODO: resetar maos
 	}
 
 	private void Reset(){
@@ -330,6 +329,5 @@ public class Player : MonoBehaviour, IPlayerController {
 		inCombo = false;
 		comboCount = -1;
 		comboWindow = 0.5f;
-
 	}
 }

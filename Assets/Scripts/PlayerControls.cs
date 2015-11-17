@@ -69,6 +69,9 @@ public class PlayerControls : MonoBehaviour {
 
 				// Record initial touch position.
 			case TouchPhase.Began:
+				if(longPressDetected){
+					break;
+				}
 				startPos = touch.position;
 				touchTime = Time.time;
 				break;
@@ -95,13 +98,14 @@ public class PlayerControls : MonoBehaviour {
 					if(!longPressDetected){
 						swipeUpDetected = true;
 					}
-				}
+				} 
 				break;
 				
 				// Report that a direction has been chosen when the finger is lifted.
 			case TouchPhase.Ended:
-				if (touch.position.x > touchingBounds) {
-					if (!swipeUpDetected || longPressDetected) {
+
+				if (touch.position.x > touchingBounds || longPressDetected) {
+					if (!swipeUpDetected) {
 						attack = true;
 					} else {
 						swipeUpDetected = false;
@@ -116,6 +120,7 @@ public class PlayerControls : MonoBehaviour {
 	void FixedUpdate() {
 
 		int count = Input.touchCount;
+		int touches = count;
 
 		//Reconhece de zero a 2 toques na tela
 
@@ -131,10 +136,6 @@ public class PlayerControls : MonoBehaviour {
 			if (attack) { 
 				//ranged attack
 				if (longPressDetected) {
-					//Impede que a magia fique parada no lugar
-					if (direction.magnitude == 0) {
-						direction = new Vector2(1, 0);
-					}
 					if(Time.time - touchTime > castingDuration){
 						player.AttackRanged(direction);
 					} else {
@@ -162,7 +163,7 @@ public class PlayerControls : MonoBehaviour {
 			//Movimentação
 			} else {
 				//Se não existir toque na tela pare o player
-				if(count == 0){
+				if(touches == 0){
 					movement = new Vector2(0, 0);
 				}
 				player.MovePlayer(movement);
