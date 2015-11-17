@@ -5521,8 +5521,13 @@ MonoBehaviour:
   chatBox: {fileID: 452034329}
   textBox: {fileID: 1433133000}
   mainCharacaterScript: {fileID: 0}
-  currentCutScene: {fileID: 796812075}
-  onCutScenePause:
+  currentCutScene: {fileID: 0}
+  onCutSceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onCutSceneEnd:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
