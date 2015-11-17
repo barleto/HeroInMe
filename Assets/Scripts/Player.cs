@@ -237,13 +237,6 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	}
 
-	public void TakeDamage(){
-		hp--;
-		if(hp == 0){
-			//Kill Player
-		}
-	}
-
 	public void Pause(){
 		pause = !pause;
 		if(pause == true){
@@ -253,6 +246,17 @@ public class Player : MonoBehaviour, IPlayerController {
 			animator.SetFloat("CastAngle", 0f);
 			animator.SetBool("Combo1", false);
 			animator.SetBool("Combo2", false);
+		}
+	}
+
+	public void TakeDamage() {
+		hp -= 1;
+		
+		hpController.UpdateHP(hp);
+		
+		if(hp <= 0) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
 		}
 	}
 

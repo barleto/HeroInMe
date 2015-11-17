@@ -60,6 +60,10 @@ public class PlayerControls : MonoBehaviour {
 			count = castingTouch+1;
 		}
 
+		if (count > 2) {
+			count = 2;
+		}
+
 		for (int i = 0; i < count; i++) {
 
 			Touch touch = Input.GetTouch(i);
@@ -85,6 +89,7 @@ public class PlayerControls : MonoBehaviour {
 				} else if(longPressDetected && touch.position.x > touchingBounds){
 					castingTime = Time.time - touchTime;
 				}
+				swipeUpDetected = false;
 				break;
 
 				// Determine direction by comparing the current touch position with the initial one.
@@ -103,7 +108,6 @@ public class PlayerControls : MonoBehaviour {
 				
 				// Report that a direction has been chosen when the finger is lifted.
 			case TouchPhase.Ended:
-
 				if (touch.position.x > touchingBounds || longPressDetected) {
 					if (!swipeUpDetected) {
 						attack = true;
@@ -159,7 +163,6 @@ public class PlayerControls : MonoBehaviour {
 			}else if (direction.y > 80 && normalizedDirection.x > -0.5f && normalizedDirection.x < 0.5f && !longPressDetected) {
 				player.MovePlayer (new Vector2 (0, 1));
 				direction = new Vector2(0, 0);
-
 			//Movimentação
 			} else {
 				//Se não existir toque na tela pare o player
