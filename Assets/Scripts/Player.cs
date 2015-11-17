@@ -7,9 +7,8 @@ public class Player : MonoBehaviour, IPlayerController {
 	public float shotSpeed;
 	public float walkingDuration;
 	public int hp = 3;
-	public GameObject Weapon;
+	public GameObject sword;
 	public GameObject projectile;
-	public GameObject meleeWeapon;
 	public GameObject castingHands;
 	public GameObject hpUI;
 	public GameObject deathAnimationBody;
@@ -41,6 +40,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		currentSpeed = speed;
 		walkingTimer = walkingDuration;
 		hpController = hpUI.GetComponent<HPController>();
+		sword.GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 	void FixedUpdate(){
@@ -172,8 +172,8 @@ public class Player : MonoBehaviour, IPlayerController {
 	void OnTriggerEnter2D(Collider2D col){
 
 		if (col.gameObject.CompareTag("PickUp")) {
+			this.EquipItem(col.gameObject.GetComponent<SpriteRenderer>().sprite, col.gameObject.GetComponent<TriggerObjectController>().weaponDamage);
 			Destroy(col.gameObject);
-			this.EquipItem();
 		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
 			DeathAnimation();
 			Invoke ("Resurrect", 3);
@@ -186,8 +186,9 @@ public class Player : MonoBehaviour, IPlayerController {
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag ("Platform")) {
 			grounded = true;
 			animator.SetBool ("Grounded", grounded);
-//		} else if (col.gameObject.CompareTag("PickUp")) {
-//			col.gameObject.GetComponent<TriggerObjectController>().Action();
+			if(col.transform.CompareTag("Platform")) {
+				transform.parent = col.transform;
+			}
 		} else if (col.gameObject.CompareTag("DeathTrigger") && !isDead) {
 			DeathAnimation();
 			Invoke ("Resurrect", 3);
@@ -201,24 +202,28 @@ public class Player : MonoBehaviour, IPlayerController {
 			if(!col.IsTouching(sphereCollider)){
 				grounded = false;
 				animator.SetBool("Grounded", grounded);
+				if (col.transform.CompareTag ("Platform")) {
+					transform.SetParent(null);
+				}
 			}
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col) {
-		if(col.transform.CompareTag("Platform")) {
-			transform.parent = col.transform;
-		}
-	}
+//	void OnCollisionEnter2D(Collision2D col) {
+//		if(col.transform.CompareTag("Platform")) {
+//			transform.parent = col.transform;
+//		}
+//	}
+//
+//	void OnCollisionExit2D (Collision2D col) {
+//		if (col.transform.CompareTag ("Platform")) {
+//			transform.SetParent(null);
+//		}
+//	}
 	
-	void OnCollisionExit2D (Collision2D col) {
-		if (col.transform.CompareTag ("Platform")) {
-			transform.SetParent(null);
-		}
-	}
-	
-	public void EquipItem () {
-		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
+	public void EquipItem (Sprite sprite, int weaponPower) {
+		//If we ever want to instantiate the weapon
+/*		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
 		sword.transform.parent = Weapon.transform;
 
 		BoxCollider2D swordCollider2D = sword.GetComponent<BoxCollider2D> ();	
@@ -227,7 +232,13 @@ public class Player : MonoBehaviour, IPlayerController {
 		weaponBoxCollider2D.offset = swordCollider2D.offset;
 		Weapon.GetComponent<SwordScript>().damage = sword.GetComponent<SwordScript>().damage;
 		swordCollider2D.enabled = false;
-
+*/
+		SpriteRenderer swordSR = sword.GetComponent<SpriteRenderer>();
+		swordSR.enabled = true;
+		swordSR.sprite = sprite;
+		sword.GetComponent<SwordScript>().damage = weaponPower;
+		//Create logic to get information from the weapon picked if we ever want to change weapons
+		//Must get its sprite and attack info
 	}
 
 	public void TakeDamage(){
@@ -283,7 +294,8 @@ public class Player : MonoBehaviour, IPlayerController {
 		animator.SetFloat("Casting", 0f);
 		animator.SetFloat("CastAngle", 0f);
 		animator.SetBool("Combo1", false);
-		animator.SetBool("Combo2", false);
+		animator.SetBool("Combo2", false);	
+		animator.SetTrigger("JustDied");
 		GetComponent<PlayerControls>().ResetControlls();
 
 		deathAnimation = (GameObject) Instantiate(deathAnimationBody, gameObject.transform.position, gameObject.transform.rotation);
@@ -299,8 +311,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		transform.position = new Vector3 (0, 3, 0);
 		hp = 3;
 		hpController.UpdateHP(hp);
-		animator.SetTrigger("JustDied");
-		Reset();
+		this.Reset();
 		castingHands.GetComponent<SpriteRenderer>().enabled = false;
 		//TODO: resetar maos
 	}
