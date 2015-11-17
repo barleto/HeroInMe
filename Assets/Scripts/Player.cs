@@ -257,6 +257,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public void Pause(){
 		pause = !pause;
+		Debug.Log(pause);
 		if(pause == true){
 			//REMINDER: Setar os triggers do animator
 			animator.SetFloat("Speed", 0f);

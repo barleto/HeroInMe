@@ -85,6 +85,7 @@ public class PlayerControls : MonoBehaviour {
 				} else if(longPressDetected && touch.position.x > touchingBounds){
 					castingTime = Time.time - touchTime;
 				}
+				swipeUpDetected = false;
 				break;
 
 				// Determine direction by comparing the current touch position with the initial one.

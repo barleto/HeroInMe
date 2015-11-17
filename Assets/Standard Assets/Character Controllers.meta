@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Standard Assets/Character Controllers.meta
 guid: 54216e9ed42974e30967824b7f0b2806
 folderAsset: yes
 timeCreated: 1445961251
+=======
+guid: 61a7c2be1d8ac4d59a97d7e3ce139e4f
+folderAsset: yes
+timeCreated: 1445956220
+>>>>>>> dc18675dc737d1e968abf5084583758f29b34e44:Assets/Scenes.meta
 licenseType: Free
 DefaultImporter:
   userData: 
