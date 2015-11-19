@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IPlayerController {
 	public GameObject castingHands;
 	public GameObject hpUI;
 	public GameObject deathAnimationBody;
+	public GameObject cape;
 
 	private Rigidbody2D myBody;
 	private Animator animator;
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		currentSpeed = speed;
 		walkingTimer = walkingDuration;
 		hpController = hpUI.GetComponent<HPController>();
-		sword.GetComponent<SpriteRenderer>().enabled = false;
+		sword.SetActive(false);
 	}
 
 	void FixedUpdate(){
@@ -137,6 +138,7 @@ public class Player : MonoBehaviour, IPlayerController {
 		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 		clone.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		shotRigidbody.velocity = new Vector2(direction.x*shotSpeed, direction.y*shotSpeed);
+		CastRangedAttack(Vector2.zero, 0f);
 		animator.SetTrigger("Shot");
 		animator.SetFloat("Casting", 0f);
 	}
@@ -147,10 +149,19 @@ public class Player : MonoBehaviour, IPlayerController {
 			return;
 		}
 
+		Cloth capeCloth = cape.GetComponent<Cloth>();
+
+		if(duration == 0f){
+			capeCloth.externalAcceleration = new Vector3(0, 0, 0);
+		} else if(facingRight){
+			capeCloth.externalAcceleration = new Vector3(Random.Range(-100, -50), 0, 0);
+		} else {
+			capeCloth.externalAcceleration = new Vector3(Random.Range(50, 100), 0, 0);
+		}
+
+
 		animator.SetFloat("Casting", duration);
-//		if(Weapon.transform.childCount >0){
-//			Debug.Log("achei");
-//		}
+
 		//Vira o player para o sentido em que está mirando
 		if ((facingRight && direction.x < 0) || (!facingRight && direction.x > 0)) {
 			Flip ();
@@ -203,7 +214,7 @@ public class Player : MonoBehaviour, IPlayerController {
 			col.gameObject.GetComponent<CoinController>().Action();
 		} 
 	}
-
+	
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "ground" || col.gameObject.CompareTag("Platform")) {
 			if(!col.IsTouching(sphereCollider)){
@@ -216,18 +227,6 @@ public class Player : MonoBehaviour, IPlayerController {
 		}
 	}
 
-//	void OnCollisionEnter2D(Collision2D col) {
-//		if(col.transform.CompareTag("Platform")) {
-//			transform.parent = col.transform;
-//		}
-//	}
-//
-//	void OnCollisionExit2D (Collision2D col) {
-//		if (col.transform.CompareTag ("Platform")) {
-//			transform.SetParent(null);
-//		}
-//	}
-	
 	public void EquipItem (Sprite sprite, int weaponPower) {
 		//If we ever want to instantiate the weapon
 /*		GameObject sword = (GameObject) Instantiate(meleeWeapon, Weapon.transform.position, Weapon.transform.rotation);
@@ -240,8 +239,8 @@ public class Player : MonoBehaviour, IPlayerController {
 		Weapon.GetComponent<SwordScript>().damage = sword.GetComponent<SwordScript>().damage;
 		swordCollider2D.enabled = false;
 */
+		sword.SetActive(true);
 		SpriteRenderer swordSR = sword.GetComponent<SpriteRenderer>();
-		swordSR.enabled = true;
 		swordSR.sprite = sprite;
 		sword.GetComponent<SwordScript>().damage = weaponPower;
 		//Create logic to get information from the weapon picked if we ever want to change weapons
@@ -256,16 +255,17 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 
 	public void Pause(){
-		pause = !pause;
-		Debug.Log(pause);
-		if(pause == true){
-			//REMINDER: Setar os triggers do animator
-			animator.SetFloat("Speed", 0f);
-			animator.SetFloat("Casting", 0f);
-			animator.SetFloat("CastAngle", 0f);
-			animator.SetBool("Combo1", false);
-			animator.SetBool("Combo2", false);
-		}
+		pause = true;
+		//REMINDER: Setar os triggers do animator
+		animator.SetFloat("Speed", 0f);
+		animator.SetFloat("Casting", 0f);
+		animator.SetFloat("CastAngle", 0f);
+		animator.SetBool("Combo1", false);
+		animator.SetBool("Combo2", false);
+	}
+
+	public void Unpause(){
+		pause = false;
 	}
 
 	private void TakeDamage(int damage) {
