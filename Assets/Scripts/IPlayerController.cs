@@ -16,7 +16,7 @@ public interface IPlayerController {
 	void CastRangedAttack (Vector2 direction, float duration);
 
 	//Makes Player equip item
-	void EquipItem ();
+	void EquipItem (Sprite sprite, int weaponPower);
 
 	//Pauses Player Movement
 	void Pause ();

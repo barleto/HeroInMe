@@ -53,9 +53,7 @@ public class PlayerControls : MonoBehaviour {
 		int count = Input.touchCount;
 
 		//Reconhece no máximo 2 toques simultaneos
-		if (count > 2) {
-			count = 2;
-		}
+
 		if (longPressDetected && !isMoving){
 			count = castingTouch+1;
 		}
@@ -108,7 +106,7 @@ public class PlayerControls : MonoBehaviour {
 				
 				// Report that a direction has been chosen when the finger is lifted.
 			case TouchPhase.Ended:
-				if (touch.position.x > touchingBounds || longPressDetected) {
+				if (touch.position.x > touchingBounds && Vector2.Distance(startPos, touch.position) < 40 || longPressDetected) {
 					if (!swipeUpDetected) {
 						attack = true;
 					} else {
