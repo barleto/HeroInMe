@@ -622,6 +622,7 @@ Prefab:
       propertyPath: hpUI
       value: 
       objectReference: {fileID: 898180382}
+<<<<<<< HEAD
     - target: {fileID: 13716554, guid: 52eebe2759f0848ddb1c664ef5e7a12b, type: 2}
       propertyPath: m_AABB.m_Center.x
       value: -2.38418579e-07
@@ -669,6 +670,11 @@ Prefab:
     - target: {fileID: 434794, guid: 52eebe2759f0848ddb1c664ef5e7a12b, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.05999994
+=======
+    - target: {fileID: 11412180, guid: 52eebe2759f0848ddb1c664ef5e7a12b, type: 2}
+      propertyPath: castingParticles
+      value: 
+>>>>>>> af5e1e99dd33e3b26d6df8476297027f4e18f7d1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52eebe2759f0848ddb1c664ef5e7a12b, type: 2}
@@ -1497,10 +1503,13 @@ Prefab:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 145567053}
+<<<<<<< HEAD
     - target: {fileID: 159118, guid: 1780d284731c9494a97bee2385bce86f, type: 2}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+=======
+>>>>>>> af5e1e99dd33e3b26d6df8476297027f4e18f7d1
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1780d284731c9494a97bee2385bce86f, type: 2}
   m_IsPrefabParent: 0
@@ -4540,10 +4549,32 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> af5e1e99dd33e3b26d6df8476297027f4e18f7d1
   m_Material: {fileID: 2100000, guid: 999db0fbe1d84f749942ab46005b00a4, type: 2}
   m_Color: {r: 0, g: .161358923, b: .632352948, a: .535000026}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
+<<<<<<< HEAD
+=======
+=======
+  startPlaying: 0
+  canvas: {fileID: 236435801}
+  talkImage: {fileID: 1378674437}
+  chatBox: {fileID: 452034329}
+  textBox: {fileID: 1433133000}
+  mainCharacaterScript: {fileID: 0}
+  currentCutScene: {fileID: 0}
+  onCutSceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onCutSceneEnd:
+>>>>>>> charf
+>>>>>>> af5e1e99dd33e3b26d6df8476297027f4e18f7d1
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
