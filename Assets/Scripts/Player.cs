@@ -256,16 +256,17 @@ public class Player : MonoBehaviour, IPlayerController {
 	}
 
 	public void Pause(){
-		pause = !pause;
-		Debug.Log(pause);
-		if(pause == true){
-			//REMINDER: Setar os triggers do animator
-			animator.SetFloat("Speed", 0f);
-			animator.SetFloat("Casting", 0f);
-			animator.SetFloat("CastAngle", 0f);
-			animator.SetBool("Combo1", false);
-			animator.SetBool("Combo2", false);
-		}
+		pause = true;
+		//REMINDER: Setar os triggers do animator
+		animator.SetFloat("Speed", 0f);
+		animator.SetFloat("Casting", 0f);
+		animator.SetFloat("CastAngle", 0f);
+		animator.SetBool("Combo1", false);
+		animator.SetBool("Combo2", false);
+	}
+
+	public void Unpause(){
+		pause = false;
 	}
 
 	private void TakeDamage(int damage) {
