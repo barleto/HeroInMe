@@ -1,10 +1,16 @@
 fileFormatVersion: 2
 guid: 115f392bca31446cfa836a37e33f1d4e
-timeCreated: 1447340224
+timeCreated: 1448375815
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - headRB2D: {instanceID: 0}
+  - frontHandRB2D: {instanceID: 0}
+  - backHandRB2D: {instanceID: 0}
+  - frontFootRB2D: {instanceID: 0}
+  - backFootRB2D: {instanceID: 0}
+  - deathAnimation: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

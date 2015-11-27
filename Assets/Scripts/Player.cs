@@ -123,6 +123,10 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public 	void AttackRanged(Vector2 direction){
 
+		if (isDead || pause == true) {
+			return;
+		}
+
 		direction.Normalize ();
 		if(direction.magnitude == 0) {
 			if (facingRight) {
@@ -143,7 +147,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public void CastRangedAttack (Vector2 direction, float duration) {
 
-		if (isDead) {
+		if (isDead || pause == true) {
 			return;
 		}
 
