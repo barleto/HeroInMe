@@ -766,6 +766,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300008, guid: e7d3a1e0e2fac4bd48b6734c2daf4fe1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+<<<<<<< HEAD
 --- !u!114 &161454846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +782,8 @@ MonoBehaviour:
   cutScene: {fileID: 1298663487}
   eventCallee: {fileID: 145567052}
   functionName: Unpause
+=======
+>>>>>>> charf
 --- !u!1 &182105456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2799,52 @@ Transform:
   - {fileID: 1907457345}
   m_Father: {fileID: 0}
   m_RootOrder: 16
+--- !u!1001 &803993830
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -.0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.3499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407506, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+      propertyPath: hpUI
+      value: 
+      objectReference: {fileID: 898180382}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &830640766
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,6 +3116,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 648032918}
   m_RootOrder: 1
+<<<<<<< HEAD
 --- !u!114 &964737294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3083,6 +3133,8 @@ MonoBehaviour:
   children:
   - {fileID: 1283246761}
   - {fileID: 403661734}
+=======
+>>>>>>> charf
 --- !u!1 &968503181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3327,6 +3379,14 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: e7d3a1e0e2fac4bd48b6734c2daf4fe1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+<<<<<<< HEAD
+=======
+--- !u!20 &1041597407 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 2094792, guid: 11c6b6494d9d042488b1401d10ba05de,
+    type: 2}
+  m_PrefabInternal: {fileID: 803993830}
+>>>>>>> charf
 --- !u!1 &1046013524
 GameObject:
   m_ObjectHideFlags: 0
@@ -4149,7 +4209,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 908533446}
   m_RootOrder: 5
+<<<<<<< HEAD
 --- !u!1 &1249860183
+=======
+--- !u!1 &1317563094
+>>>>>>> charf
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4729,6 +4793,25 @@ Transform:
   - {fileID: 488896356}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+<<<<<<< HEAD
+=======
+--- !u!1 &1565221714 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 136776, guid: 11c6b6494d9d042488b1401d10ba05de, type: 2}
+  m_PrefabInternal: {fileID: 803993830}
+--- !u!114 &1565221716 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11474628, guid: 11c6b6494d9d042488b1401d10ba05de,
+    type: 2}
+  m_PrefabInternal: {fileID: 803993830}
+  m_Script: {fileID: 11500000, guid: e2802beeceab849cca6ee95b08d61055, type: 3}
+--- !u!114 &1565221717 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11412180, guid: 11c6b6494d9d042488b1401d10ba05de,
+    type: 2}
+  m_PrefabInternal: {fileID: 803993830}
+  m_Script: {fileID: 11500000, guid: 583381bc3a15d400ab8adb3f2f51bb9d, type: 3}
+>>>>>>> charf
 --- !u!1 &1614050759
 GameObject:
   m_ObjectHideFlags: 0
