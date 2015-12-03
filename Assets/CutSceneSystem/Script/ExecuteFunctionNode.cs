@@ -10,6 +10,7 @@ using UnityEngine.Events;
 public class ExecuteFunctionNode : CutSceneNodes {
 	[SerializeField]
 	public MonoBehaviour eventCallee = null;
+	[SerializeField]
 	public string functionName;
 
 	#if UNITY_EDITOR

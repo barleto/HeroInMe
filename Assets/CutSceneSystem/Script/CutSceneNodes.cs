@@ -8,6 +8,7 @@ using UnityEditor;
 public class CutSceneNodes : ScriptableObject{
 
 	public bool hasExecutionEnded = false;
+	[SerializeField]
 	public CutScene cutScene;
 
 	#if UNITY_EDITOR

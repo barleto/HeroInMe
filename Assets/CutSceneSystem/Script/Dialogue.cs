@@ -11,9 +11,12 @@ public class Dialogue : CutSceneNodes {
 	public string text;
 	[Range(0.1f,5f)]
 	public float letterPause = 0.1f;
-	
+
+	[SerializeField]
 	private Text textBox;
+	[SerializeField]
 	private bool hasFinishedWritingText = false;
+	[SerializeField]
 	private Coroutine textRoutine;
 
 	#if UNITY_EDITOR

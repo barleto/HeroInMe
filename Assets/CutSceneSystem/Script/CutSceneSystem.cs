@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class CutSceneSystem : MonoBehaviour {
 	
 	enum NodeType {Animation, Dialogue};
@@ -13,23 +14,35 @@ public class CutSceneSystem : MonoBehaviour {
 	public Image chatBox;
 	public Text textBox;
 	public GameObject mainCharacaterScript;
-	public CutScene currentCutScene;
+	public CutScene initialCutScene;
+	[SerializeField]
+	private CutScene currentCutScene;
 	public UnityEvent onCutSceneStart;
 	public UnityEvent onCutSceneEnd;
-	
+
+
+	//singleton
 	private static CutSceneSystem singletonInstanece = null;
-	
+
+	[SerializeField]
 	private CutSceneNodes currentNode = null;
+	[SerializeField]
 	private int currentIndexNode = 0;
+	[SerializeField]
 	private bool tapOccured = false;
+	[SerializeField]
 	private bool continuePlaying = true;
+
+	//switch sytem variables
+	[HideInInspector]
+	public List<GameSwitch> SwitchVariables;
 	
 	// Use this for initialization
 	void Start () {
 		toggleUIVisibility (false);
 		textBox.text = "";
-		if(startPlaying){
-			playScene (currentCutScene);
+		if(startPlaying && initialCutScene != null){
+			playScene (initialCutScene);
 		}
 
 	}
@@ -49,6 +62,11 @@ public class CutSceneSystem : MonoBehaviour {
 	
 	public void playScene(CutScene newScene){
 		endCurrentCutscene ();
+		if(newScene.gameSwitch != null){
+			if(newScene.gameSwitch.value == false){
+				return;
+			}
+		}
 		if(newScene.nodeList.Count < 1){
 			return;
 		}
@@ -106,12 +124,6 @@ public class CutSceneSystem : MonoBehaviour {
 		currentNode.tapAtScreen ();
 	}
 
-	public void debugCall(){
-		for(int i = 0 ; i< 10000;i++){
-			Debug.Log ("Funfou");
-		}
-	}
-
 	private void endCurrentCutscene(){
 		if(currentCutScene == null){
 			return;
@@ -121,7 +133,16 @@ public class CutSceneSystem : MonoBehaviour {
 			csn.end();
 		}
 	}
+
+	public bool getSwitchVariableValue(string switchName){
+		return false;
+	}
+
+	public void setSwitchValue(string switchName, bool value){;
+
+	}
 }
+
 /*
 public class CutSceneSystem : MonoBehaviour {
 

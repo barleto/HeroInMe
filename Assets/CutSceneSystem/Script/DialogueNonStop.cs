@@ -14,9 +14,12 @@ public class DialogueNonStop : CutSceneNodes {
 	public float letterPause = 0.1f;
 	public Canvas canvas;
 	public Text chatBox;
-	
+
+	[SerializeField]
 	private bool hasFinishedWritingText = false;
+	[SerializeField]
 	private float countTime = 0;
+	[SerializeField]
 	private Coroutine textRoutine;
 
 	#if UNITY_EDITOR

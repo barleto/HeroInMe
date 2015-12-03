@@ -11,8 +11,12 @@ public class CutSceneEditor : Editor {
 	CutScene cutScene;
 	private int index1,index2;
 	private bool grouping = false;
+	private bool changeOrder = false;
+	private CutSceneNodes nodeToChange = null;
+	private int directionToChange = 0;
+	private List<string> listOfSwitches = new List<string>();
 	
-	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode,SetActiveNode};
+	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode,SetActiveNode,SetSwitchValue};
 	private TypesOfNode type = TypesOfNode.Animation;
 	
 	public override void OnInspectorGUI(){
@@ -23,6 +27,19 @@ public class CutSceneEditor : Editor {
 		//CutSceneSystem
 		cutScene.css = GameObject.Find("CutSceneSystem").GetComponent<CutSceneSystem>();
 		cutScene.css = (CutSceneSystem)EditorGUILayout.ObjectField ("Cut Scene System",cutScene.css, typeof(CutSceneSystem), true);
+		//switch system here:
+		listOfSwitches.Clear ();
+		listOfSwitches.Add ("None");
+		foreach(GameSwitch gameSwitch in cutScene.css.SwitchVariables){
+			listOfSwitches.Add(gameSwitch.name);
+		}
+		cutScene.indexOfSwitch = EditorGUILayout.Popup ("Switch to check: ",cutScene.indexOfSwitch,listOfSwitches.ToArray());
+		if (cutScene.css.SwitchVariables.Count > 0 && (cutScene.indexOfSwitch -1) >= 0) {
+			cutScene.gameSwitch = cutScene.css.SwitchVariables [cutScene.indexOfSwitch - 1];
+		} else {
+			cutScene.gameSwitch = null;
+		}
+
 		//draw bool options
 		bool pauseGame = GUILayout.Toggle (cutScene.pauseGame,"Pause The Game",GUILayout.Width(300));
 		cutScene.pauseGame = pauseGame;
@@ -33,9 +50,21 @@ public class CutSceneEditor : Editor {
 			GUILayout.BeginVertical("box");
 			
 			if(!(nodeS is CompositeCutSceneNode)){
+				GUILayout.BeginHorizontal ();
 				if(GUILayout.Button("- Delete",GUILayout.Width(100))){
 					cutScene.nodeList.Remove(nodeS);
 				}
+				if(GUILayout.Button("[MOVE UP]",GUILayout.Width(100))){
+					changeOrder = true;
+					nodeToChange = nodeS;
+					directionToChange = -1;
+				}
+				if(GUILayout.Button("[MOVE DOWN]",GUILayout.Width(100))){
+					changeOrder = true;
+					nodeToChange = nodeS;
+					directionToChange = 1;
+				}
+				GUILayout.EndHorizontal();
 				nodeS.createUIDescription(cutScene,serializedObject);
 				if(cutScene.nodeList.IndexOf(nodeS)+1 < cutScene.nodeList.Count){
 					if(GUILayout.Button("Group With Next Node")){
@@ -46,6 +75,18 @@ public class CutSceneEditor : Editor {
 				}
 			}else{
 				CompositeCutSceneNode nodeC = (CompositeCutSceneNode)nodeS;
+				GUILayout.BeginHorizontal ();
+				if(GUILayout.Button("[MOVE UP]",GUILayout.Width(100))){
+					changeOrder = true;
+					nodeToChange = nodeS;
+					directionToChange = -1;
+				}
+				if(GUILayout.Button("[MOVE DOWN]",GUILayout.Width(100))){
+					changeOrder = true;
+					nodeToChange = nodeS;
+					directionToChange = 1;
+				}
+				GUILayout.EndHorizontal();
 				if(nodeC.children.Count>0){
 					for(int j=0;j<nodeC.children.Count;j++){
 						CutSceneNodes nodeSC = nodeC.children[j];
@@ -109,6 +150,11 @@ public class CutSceneEditor : Editor {
 				newSetActiveNode.cutScene = cutScene;
 				cutScene.nodeList.Add(newSetActiveNode);
 				break;
+			case TypesOfNode.SetSwitchValue:
+				SetSwitchValueNode newSetSwitchValueNode = new SetSwitchValueNode();
+				newSetSwitchValueNode.cutScene = cutScene;
+				cutScene.nodeList.Add(newSetSwitchValueNode);
+				break;
 			}
 		}
 		/*if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){
@@ -162,7 +208,31 @@ public class CutSceneEditor : Editor {
 				}
 			}
 		}
+		//changeOrderHere
+		if(changeOrder){
+			int indexOld = cutScene.nodeList.IndexOf(nodeToChange);
+			int newIndex = indexOld + directionToChange;
+			if( newIndex >= 0 && newIndex < cutScene.nodeList.Count){
+				CutSceneNodes n = cutScene.nodeList[newIndex];
+				if(indexOld > newIndex){
+					cutScene.nodeList.RemoveAt(indexOld);
+					cutScene.nodeList.RemoveAt(newIndex);
+					cutScene.nodeList.Insert(newIndex,nodeToChange);
+					cutScene.nodeList.Insert(indexOld,n);
+				}else{
+					cutScene.nodeList.RemoveAt(newIndex);
+					cutScene.nodeList.RemoveAt(indexOld);
+					cutScene.nodeList.Insert(indexOld,n);
+					cutScene.nodeList.Insert(newIndex,nodeToChange);
+				}
 
+			}
+
+		}
+		//finish changing order
+		changeOrder = false;
+		nodeToChange = null;
+		directionToChange = 0;
 		if (GUI.changed) {
 			serializedObject.ApplyModifiedProperties();
 		}
