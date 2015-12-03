@@ -17,7 +17,7 @@ public class Dialogue : CutSceneNodes {
 	[SerializeField]
 	private bool hasFinishedWritingText = false;
 	[SerializeField]
-	private Coroutine textRoutine;
+	private Coroutine textRoutine = null;
 
 	#if UNITY_EDITOR
 	public override void createUIDescription(CutScene cutScene,SerializedObject serializedObject){
@@ -53,7 +53,9 @@ public class Dialogue : CutSceneNodes {
 	
 	public override  void end(){
 		base.end ();
-		cutScene.StopCoroutine (textRoutine);
+		if(textRoutine != null){
+			cutScene.StopCoroutine (textRoutine);
+		}
 		cutScene.css.toggleUIVisibility (false);
 		hasFinishedWritingText = false;
 	}

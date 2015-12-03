@@ -16,7 +16,7 @@ public class CutSceneEditor : Editor {
 	private int directionToChange = 0;
 	private List<string> listOfSwitches = new List<string>();
 	
-	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode,SetActiveNode,SetSwitchValue};
+	enum TypesOfNode{Animation,Dialogue,DialogueNonStop,ExecuteFunctionNode,SetActiveNode,SetSwitchValue,DecisionOnSwitchNode};
 	private TypesOfNode type = TypesOfNode.Animation;
 	
 	public override void OnInspectorGUI(){
@@ -155,6 +155,12 @@ public class CutSceneEditor : Editor {
 				newSetSwitchValueNode.cutScene = cutScene;
 				cutScene.nodeList.Add(newSetSwitchValueNode);
 				break;
+			case TypesOfNode.DecisionOnSwitchNode:
+				DecisionSwitchNode newDecisionSwitchNode = new DecisionSwitchNode();
+				newDecisionSwitchNode.cutScene = cutScene;
+				cutScene.nodeList.Add(newDecisionSwitchNode);
+				break;
+
 			}
 		}
 		/*if(GUILayout.Button("+Dialogo",GUILayout.Width(100))){

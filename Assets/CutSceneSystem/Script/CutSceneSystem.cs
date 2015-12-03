@@ -80,7 +80,7 @@ public class CutSceneSystem : MonoBehaviour {
 	}
 	
 	public void stopScene(){
-		toggleUIVisibility (false);
+		endCurrentCutscene ();
 	}
 	
 	public void pauseScene(){
@@ -132,6 +132,7 @@ public class CutSceneSystem : MonoBehaviour {
 			csn.hasExecutionEnded = false;
 			csn.end();
 		}
+		currentCutScene = null;
 	}
 
 	public bool getSwitchVariableValue(string switchName){
