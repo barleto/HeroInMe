@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Animation/Player Animations/WeaponReappearing.anim.meta
 guid: ab106edacdaf3471fa4d6c2e53653633
 timeCreated: 1447951533
+=======
+guid: b8815e16e1b9c4c50a61611d8df04c20
+timeCreated: 1447777606
+>>>>>>> dekkoh:Assets/Scenes/DekkohScene.unity.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 

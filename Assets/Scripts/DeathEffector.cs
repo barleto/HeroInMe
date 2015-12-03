@@ -29,7 +29,10 @@ public class DeathEffector : MonoBehaviour {
 	}
 
 	void PartsRotation() {
-		float rand = Random.Range(-maxRotation, maxRotation);
+
+		float rand;
+
+		rand = Random.Range(10, maxRotation);
 		headRB2D.angularVelocity = rand;
 
 		rand = Random.Range(-maxRotation, maxRotation);

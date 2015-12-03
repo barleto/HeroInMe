@@ -48,23 +48,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &111048
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 445692}
-  - 137: {fileID: 13798172}
-  - 183: {fileID: 18308048}
-  m_Layer: 0
-  m_Name: capa
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &112114
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,6 +63,23 @@ GameObject:
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &125824
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 434794}
+  - 137: {fileID: 13716554}
+  - 183: {fileID: 18331320}
+  m_Layer: 0
+  m_Name: Cape
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,6 +174,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &197750
 =======
 --- !u!1 &156846
@@ -210,12 +211,16 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &185336
 >>>>>>> charf
+=======
+--- !u!1 &197750
+>>>>>>> dekkoh
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
+<<<<<<< HEAD
 <<<<<<< HEAD
   - 4: {fileID: 443994}
   - 212: {fileID: 21273840}
@@ -225,6 +230,10 @@ GameObject:
   - 61: {fileID: 6104480}
   - 114: {fileID: 11406194}
 >>>>>>> charf
+=======
+  - 4: {fileID: 443994}
+  - 212: {fileID: 21273840}
+>>>>>>> dekkoh
   m_Layer: 0
   m_Name: CastingHands
   m_TagString: Untagged
@@ -265,10 +274,14 @@ Transform:
   - {fileID: 448244}
   - {fileID: 494696}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 443994}
 =======
   - {fileID: 431162}
 >>>>>>> charf
+=======
+  - {fileID: 443994}
+>>>>>>> dekkoh
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &419516
@@ -309,14 +322,31 @@ Transform:
   m_Father: {fileID: 426040}
   m_RootOrder: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!4 &434794
 =======
 --- !u!4 &431162
 >>>>>>> charf
+=======
+--- !u!4 &434794
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125824}
+  m_LocalRotation: {x: .00485047279, y: .707083285, z: -.707097113, w: -.00485064369}
+  m_LocalPosition: {x: -1.05999994, y: -2.56999993, z: .140000001}
+  m_LocalScale: {x: .293752879, y: .136524484, z: .299601585}
+  m_Children: []
+  m_Father: {fileID: 460588}
+  m_RootOrder: 0
+--- !u!4 &443994
+>>>>>>> dekkoh
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
 <<<<<<< HEAD
   m_GameObject: {fileID: 125824}
   m_LocalRotation: {x: .00485047279, y: .707083285, z: -.707097113, w: -.00485064369}
@@ -328,10 +358,14 @@ Transform:
 --- !u!4 &443994
 =======
   m_GameObject: {fileID: 178534}
+=======
+  m_GameObject: {fileID: 197750}
+>>>>>>> dekkoh
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD
   - {fileID: 440856}
   m_Father: {fileID: 407506}
   m_RootOrder: 6
@@ -371,6 +405,11 @@ Transform:
   m_Father: {fileID: 460588}
   m_RootOrder: 0
 >>>>>>> charf
+=======
+  - {fileID: 472908}
+  m_Father: {fileID: 407506}
+  m_RootOrder: 6
+>>>>>>> dekkoh
 --- !u!4 &448244
 Transform:
   m_ObjectHideFlags: 1
@@ -394,10 +433,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 434794}
 =======
   - {fileID: 445692}
 >>>>>>> charf
+=======
+  - {fileID: 434794}
+>>>>>>> dekkoh
   m_Father: {fileID: 407506}
   m_RootOrder: 3
 --- !u!4 &472908
@@ -500,10 +543,14 @@ CircleCollider2D:
   serializedVersion: 2
   m_Radius: 1.52521193
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!61 &6183756
 =======
 --- !u!61 &6104480
 >>>>>>> charf
+=======
+--- !u!61 &6183756
+>>>>>>> dekkoh
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -574,17 +621,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &11406194
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3785ec60d7373457dbd8f057da569341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11412180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -601,11 +637,15 @@ MonoBehaviour:
   walkingDuration: .200000003
   hp: 3
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dekkoh
   sword: {fileID: 126828}
   projectile: {fileID: 151214, guid: 7cfc63d40995943559a8047512941d80, type: 2}
   castingHands: {fileID: 197750}
   hpUI: {fileID: 0}
   deathAnimationBody: {fileID: 199084, guid: bc7dd53a2fe3343b79aa09968ac667d9, type: 2}
+  cape: {fileID: 125824}
 --- !u!114 &11460998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,6 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+<<<<<<< HEAD
 =======
   Weapon: {fileID: 185336}
   projectile: {fileID: 151214, guid: 7cfc63d40995943559a8047512941d80, type: 2}
@@ -626,6 +667,8 @@ MonoBehaviour:
   hpUI: {fileID: 0}
   deathAnimationBody: {fileID: 199084, guid: bc7dd53a2fe3343b79aa09968ac667d9, type: 2}
 >>>>>>> charf
+=======
+>>>>>>> dekkoh
 --- !u!114 &11474628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -647,19 +690,27 @@ Behaviour:
   m_GameObject: {fileID: 112114}
   m_Enabled: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!137 &13716554
 =======
 --- !u!137 &13798172
 >>>>>>> charf
+=======
+--- !u!137 &13716554
+>>>>>>> dekkoh
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_GameObject: {fileID: 125824}
 =======
   m_GameObject: {fileID: 111048}
 >>>>>>> charf
+=======
+  m_GameObject: {fileID: 125824}
+>>>>>>> dekkoh
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -686,23 +737,31 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 2.38418579e-07, y: 0, z: 2.86102295e-06}
+    m_Center: {x: -2.38418579e-07, y: -1.1920929e-07, z: 1.90734863e-06}
     m_Extent: {x: 5.13991499, y: .000435858761, z: 5.1345048}
   m_DirtyAABB: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!183 &18331320
 =======
 --- !u!183 &18308048
 >>>>>>> charf
+=======
+--- !u!183 &18331320
+>>>>>>> dekkoh
 Cloth:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_GameObject: {fileID: 125824}
 =======
   m_GameObject: {fileID: 111048}
 >>>>>>> charf
+=======
+  m_GameObject: {fileID: 125824}
+>>>>>>> dekkoh
   m_Enabled: 1
   m_StretchingStiffness: 1
   m_BendingStiffness: 0
@@ -1146,12 +1205,17 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
 =======
   m_SortingOrder: 2
   m_Sprite: {fileID: 0}
 >>>>>>> charf
+=======
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
+>>>>>>> dekkoh
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21273840
 SpriteRenderer:
@@ -1176,6 +1240,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300006, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
@@ -1233,6 +1298,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+=======
+>>>>>>> dekkoh
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300006, guid: 9bfc81d53ab7a431a9367c30363a00be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

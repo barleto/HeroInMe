@@ -124,6 +124,10 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public 	void AttackRanged(Vector2 direction){
 
+		if (isDead || pause == true) {
+			return;
+		}
+
 		direction.Normalize ();
 		if(direction.magnitude == 0) {
 			if (facingRight) {
@@ -145,7 +149,7 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public void CastRangedAttack (Vector2 direction, float duration) {
 
-		if (isDead) {
+		if (isDead || pause == true) {
 			return;
 		}
 
@@ -247,13 +251,6 @@ public class Player : MonoBehaviour, IPlayerController {
 		//Must get its sprite and attack info
 	}
 
-	public void TakeDamage(){
-		hp--;
-		if(hp == 0){
-			//Kill Player
-		}
-	}
-
 	public void Pause(){
 		pause = true;
 		//REMINDER: Setar os triggers do animator
@@ -266,6 +263,17 @@ public class Player : MonoBehaviour, IPlayerController {
 
 	public void Unpause(){
 		pause = false;
+	}
+
+	public void TakeDamage() {
+		hp -= 1;
+		
+		hpController.UpdateHP(hp);
+		
+		if(hp <= 0) {
+			DeathAnimation();
+			Invoke ("Resurrect", 3);
+		}
 	}
 
 	private void TakeDamage(int damage) {

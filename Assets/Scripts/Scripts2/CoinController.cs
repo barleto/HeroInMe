@@ -16,8 +16,7 @@ public class CoinController : MonoBehaviour {
 	}
 
 	public void Action(){
-		door.gameObject.GetComponent<DoorController>().OpenDoor();
-		//door.SendMessage("OpenDoor");
+		door.GetComponent<DoorController>().OpenDoor();
 		gameObject.SetActive(false);
 	}
 }
